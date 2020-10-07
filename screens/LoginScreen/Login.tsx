@@ -32,7 +32,7 @@ const Login = () => {
                 <Text style={styles.nextText}>Entrar</Text>
             </TouchableOpacity>
             <View style={styles.divLinks}>
-                <TouchableOpacity onPress={() => {}}>
+                <TouchableOpacity onPress={() => {navigation.navigate("PersonalData")}}>
                     <Text style={{
                         fontFamily: "Poppins-ExtraLight",
                         fontSize: 17,

@@ -7,6 +7,9 @@ export type RootStackParamList = {
   BeNotified: any;
   ForgotPassword: any;
   ChangePasswordForgot: any;
+  PersonalData: any;
+  AccesData: any;
+  ConfirmationScreen: any;
 };
 
 export type BottomTabParamList = {

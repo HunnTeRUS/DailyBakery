@@ -12,6 +12,9 @@ import BeNotified from '../screens/BeNotified/BeNotified'
 import Login from '../screens/LoginScreen/Login'
 import ForgotPassword from '../screens/ForgotPassword/ForgotPassword'
 import ChangePassword from '../screens/ForgotPassword/ChangePassword/ChangePassword'
+import PersonalData from '../screens/BakeryRegister/PersonalData/PersonalData'
+import AccesData from '../screens/BakeryRegister/AccessData/AcessData'
+import ConfirmationScreen from "../screens/BakeryRegister/ConfirmationScreen/Confirmation"
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -54,7 +57,7 @@ function RootNavigator() {
               shadowOpacity: 0,
               borderBottomWidth: 0,
             }, 
-            headerTitle: () => (<><Image resizeMode="contain"  style={{width: 170, alignSelf: "flex-end"}} source={require("../assets/images/headerImageDailyBakery.png")}/></>),
+            headerTitle: () => (<View style={{alignItems: "center", justifyContent: "center"}}><Image resizeMode="contain"  style={{width: 170, alignSelf: "flex-end"}} source={require("../assets/images/headerImageDailyBakery.png")}/></View>),
           }
         } component={BeNotified} />
       <Stack.Screen options={{
@@ -90,6 +93,40 @@ function RootNavigator() {
         }, 
         headerTitle: () => (<></>),
       }}  name="ChangePasswordForgot" component={ChangePassword} />
+      <Stack.Screen options={{
+        headerShown: true,
+        headerTintColor: '#FEC044',
+        headerStyle: {
+          backgroundColor: "#F4EEEE",
+          elevation: 0,
+          shadowOpacity: 0,
+          borderBottomWidth: 0,
+        }, 
+        headerTitle: () => (<></>),
+      }}  name="PersonalData" component={PersonalData} />
+      <Stack.Screen options={{
+        headerShown: true,
+        headerTintColor: '#FEC044',
+        headerStyle: {
+          backgroundColor: "#F4EEEE",
+          elevation: 0,
+          shadowOpacity: 0,
+          borderBottomWidth: 0,
+        }, 
+        headerTitle: () => (<></>),
+      }}  name="AccesData" component={AccesData} />
+      <Stack.Screen options={{
+        headerShown: true,
+        headerTintColor: '#FEC044',
+        headerStyle: {
+          backgroundColor: "#F4EEEE",
+          elevation: 0,
+          shadowOpacity: 0,
+          borderBottomWidth: 0,
+        }, 
+        headerTitle: () => (<></>),
+        headerLeft: () => (<></>),
+      }}  name="ConfirmationScreen" component={ConfirmationScreen} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
     </Stack.Navigator>
   );
