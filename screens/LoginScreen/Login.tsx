@@ -38,7 +38,7 @@ const Login = () => {
                         fontSize: 17,
                     }}>Desejo criar meu cadastro</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => {}} >
+                <TouchableOpacity onPress={() => {navigation.navigate("ForgotPassword")}} >
                     <Text style={{
                         fontFamily: "Poppins-ExtraLight",
                         fontSize: 17,

@@ -5,6 +5,7 @@ export type RootStackParamList = {
   MapScreen: any;
   Login: any;
   BeNotified: any;
+  ForgotPassword: any;
 };
 
 export type BottomTabParamList = {
