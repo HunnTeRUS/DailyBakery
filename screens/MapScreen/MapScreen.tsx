@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Image, StatusBar, BackHandler } from 'react-native';
+import { View, Text, Image, StatusBar, BackHandler, Keyboard } from 'react-native';
 import styles from './styles'
 import MapView, { Region, Marker, Callout } from 'react-native-maps'
 import { requestPermissionsAsync, getCurrentPositionAsync, LocationAccuracy } from 'expo-location'
 import ObjectCoordsType from './ObjectCoordsType'
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
-import {Feather} from '@expo/vector-icons'
+import {Feather, MaterialIcons} from '@expo/vector-icons'
+import { TextInput } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const MapScreen = () => {
     StatusBar.setHidden(true)
     const [currentRegion, setCurrentRegion] = useState<Region>();
     const navigation = useNavigation();
+    const [keyboardAppearing, setKeyboardAppearing] = useState(false)
     
     useFocusEffect(
         React.useCallback(() => {
@@ -46,9 +49,24 @@ const MapScreen = () => {
                 setCurrentRegion(obj)
             }
         }
-
         loadInitialPosition();
+
+        Keyboard.addListener('keyboardDidShow', _keyboardDidShow);
+        Keyboard.addListener('keyboardDidHide', _keyboardDidHide);
+
+        return () => {
+        Keyboard.removeListener('keyboardDidShow', _keyboardDidShow);
+        Keyboard.removeListener('keyboardDidHide', _keyboardDidHide);
+        };
     }, []);
+
+    const _keyboardDidShow = () => {
+        setKeyboardAppearing(true)
+      };
+    
+      const _keyboardDidHide = () => {
+        setKeyboardAppearing(false)
+      };
 
     return (
         <>
@@ -70,6 +88,18 @@ const MapScreen = () => {
                     </Callout>
                 </Marker>
             </MapView>
+            <View style={[styles.searchForm, {marginBottom: keyboardAppearing ? "55%" : "0%"}]}>
+                <TextInput 
+                    style={styles.searchInput} 
+                    placeholder="Buscar padarias por nome..."
+                    placeholderTextColor="#999"
+                    autoCapitalize="words"
+                    autoCorrect={false}
+                />
+                <TouchableOpacity style={styles.loadButton}>
+                    <MaterialIcons name="my-location" size={20} color="white"/>
+                </TouchableOpacity>
+            </View>
             <Image resizeMode="contain"  style={styles.imageHeader} source={require("../../assets/images/headerImageDailyBakery.png")}/>    
         </>
     )
