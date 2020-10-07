@@ -49,6 +49,7 @@ export default function ChangePassword() {
 
                 <TouchableOpacity disabled={(password.length >= 6) && (confirmationPassword.length >= 6) ? false : true}
                     onPress={() => {
+                        navigation.navigate('Root');
                     }}
                     containerStyle={{
                         opacity: (password.length >= 6) && (confirmationPassword.length >= 6) && (confirmationPassword === password) ? 1 : .4,

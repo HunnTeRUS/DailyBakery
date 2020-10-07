@@ -15,7 +15,7 @@ const Login = () => {
                 <Image resizeMode="contain" source={require('../../assets/images/daily2.png')} style={styles.image} />
                 <View style={styles.inputs}>
                     <Text style={styles.text}>Email</Text>
-                    <TextInput icon="user" placeholder="Digite seu email"
+                    <TextInput icon="mail" placeholder="Digite seu email"
                         maxLength={18} blurOnSubmit={true} 
                         validator={
                             text => {

@@ -45,6 +45,7 @@ const ModalPopup = (props: ModalPopupInterface) => {
                         {tries < 4 && tries !== 0 ? errorMessage : <></>}
                         <View style={styles.buttonContainer}>
                             <TouchableOpacity style={styles.nextButton} onPress={() => {
+                                setShow(false)
                                 navigation.navigate('ChangePasswordForgot');
                             }}>
                                 <Text style={styles.nextText}>Validar</Text>

@@ -11,6 +11,7 @@ import MapScreen from '../screens/MapScreen/MapScreen'
 import BeNotified from '../screens/BeNotified/BeNotified'
 import Login from '../screens/LoginScreen/Login'
 import ForgotPassword from '../screens/ForgotPassword/ForgotPassword'
+import ChangePassword from '../screens/ForgotPassword/ChangePassword/ChangePassword'
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -78,6 +79,17 @@ function RootNavigator() {
         }, 
         headerTitle: () => (<></>),
       }}  name="ForgotPassword" component={ForgotPassword} />
+      <Stack.Screen options={{
+        headerShown: true,
+        headerTintColor: '#FEC044',
+        headerStyle: {
+          backgroundColor: "#F4EEEE",
+          elevation: 0,
+          shadowOpacity: 0,
+          borderBottomWidth: 0,
+        }, 
+        headerTitle: () => (<></>),
+      }}  name="ChangePasswordForgot" component={ChangePassword} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
     </Stack.Navigator>
   );
