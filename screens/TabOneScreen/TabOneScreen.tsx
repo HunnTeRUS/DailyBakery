@@ -1,10 +1,12 @@
 import { FontAwesome5 } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 import * as React from 'react';
 import { StyleSheet, Image, View, Text } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import styles from './styles'
 
 export default function TabOneScreen() {
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <View style={styles.secondContainer}>
@@ -20,7 +22,7 @@ export default function TabOneScreen() {
 
         <Text style={styles.title}><Text style={{color: "#FEC044", fontFamily: 'Poppins-Bold',}}>Clique no botão abaixo</Text> para ser notificado por esta padaria</Text>
 
-        <TouchableOpacity style={styles.beNotifiedButton}>
+        <TouchableOpacity onPress={() => {navigation.navigate("Login")}} style={styles.beNotifiedButton}>
           <Image style={styles.notificationIcon} source={require("../../assets/images/notificationIcon.png")} />
           <Text style={styles.beNotifiedText}>Ativar Notificação</Text>
         </TouchableOpacity>

@@ -1,16 +1,30 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Image, StatusBar } from 'react-native';
+import { View, Text, Image, StatusBar, BackHandler } from 'react-native';
 import styles from './styles'
 import MapView, { Region, Marker, Callout } from 'react-native-maps'
 import { requestPermissionsAsync, getCurrentPositionAsync, LocationAccuracy } from 'expo-location'
 import ObjectCoordsType from './ObjectCoordsType'
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import {Feather} from '@expo/vector-icons'
 
 const MapScreen = () => {
     StatusBar.setHidden(true)
     const [currentRegion, setCurrentRegion] = useState<Region>();
     const navigation = useNavigation();
     
+    useFocusEffect(
+        React.useCallback(() => {
+          const onBackPress = () => {
+            return true;
+          };
+    
+          BackHandler.addEventListener('hardwareBackPress', onBackPress);
+    
+          return () =>
+            BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+        }, [])
+      );
+
     useEffect(() => {
         async function loadInitialPosition(){
             const {granted} = await requestPermissionsAsync();
@@ -48,6 +62,10 @@ const MapScreen = () => {
                         <View style={styles.callout}>
                             <Text style={styles.bakeryName}>Padaria do Zezé</Text>
                             <Text style={styles.opened}>ABERTA</Text>
+                            <View style={styles.seeMoreView}> 
+                                <Text style={styles.info}>Clique aqui para ver mais</Text>
+                                <Feather style={styles.arrowRightIcon} name="arrow-right" color="#FEC044" size={15}/>
+                            </View>
                         </View>
                     </Callout>
                 </Marker>

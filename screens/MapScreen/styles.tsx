@@ -16,16 +16,30 @@ export default StyleSheet.create({
         borderColor: "#FFF"
     },
     callout: {
-        width: 160
+        width: 260,
     },
     bakeryName: {
-        fontWeight: 'bold',
-        fontSize: 16,
-        alignSelf: 'center'
+        fontFamily: 'Poppins-Bold',
+        alignSelf: 'center',
+    },
+    info: {
+        color: "#666",
+        marginTop: 5,
+        alignSelf: "center",
+        fontFamily: 'Poppins-Regular',
+        marginRight: 5
     },
     opened: {
         color: 'green',
         marginTop: 5,
+        fontFamily: 'Poppins-Bold',
         alignSelf: 'center'
+    },
+    seeMoreView: {
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    arrowRightIcon: {
     }
 })

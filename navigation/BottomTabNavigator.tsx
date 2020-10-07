@@ -41,7 +41,7 @@ export default function BottomTabNavigator() {
           tabBarIcon: ({ color }) => <TabBarIcon name="ios-contacts" color={color} />,
         }}
       />
-    </BottomTab.Navigator>
+    </BottomTab.Navigator> 
   );
 }
 

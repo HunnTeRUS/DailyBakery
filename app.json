@@ -3,6 +3,10 @@
     "name": "DailyBakery",
     "slug": "DailyBakery",
     "version": "1.0.0",
+    "platforms": [
+      "ios",
+      "android"
+    ],
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
@@ -10,7 +14,7 @@
     "splash": {
       "image": "./assets/images/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#ffcf6e"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -19,7 +23,11 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier":"com.dailybakeryowner"
+    },
+    "android":{
+      "package":"com.dailybakery"
     },
     "web": {
       "favicon": "./assets/images/favicon.png"

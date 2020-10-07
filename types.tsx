@@ -3,6 +3,8 @@ export type RootStackParamList = {
   BottomTabNavigator: any;
   NotFound: any;
   MapScreen: any;
+  Login: any;
+  BeNotified: any;
 };
 
 export type BottomTabParamList = {
