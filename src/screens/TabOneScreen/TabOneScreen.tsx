@@ -12,7 +12,7 @@ export default function TabOneScreen() {
       <View style={styles.secondContainer}>
 
         <View style={{flexDirection: "row", marginTop: "40%"}}>
-          <Image style={styles.transparentBakerIcon} resizeMode="contain" source={require("../../assets/images/bakerIconTransparent.png")}/>
+          <Image style={styles.transparentBakerIcon} resizeMode="contain" source={require("../../../assets/images/bakerIconTransparent.png")}/>
           
           <View style={{flexDirection: "column", alignSelf: "center"}}>
             <Text style={[styles.bakeryName, {color: "#FEC044"}]}>Padaria do Zezé</Text>
@@ -23,7 +23,7 @@ export default function TabOneScreen() {
         <Text style={styles.title}><Text style={{color: "#FEC044", fontFamily: 'Poppins-Bold',}}>Clique no botão abaixo</Text> para ser notificado por esta padaria</Text>
 
         <TouchableOpacity onPress={() => {navigation.navigate("BeNotified")}} style={styles.beNotifiedButton}>
-          <Image style={styles.notificationIcon} source={require("../../assets/images/notificationIcon.png")} />
+          <Image style={styles.notificationIcon} source={require("../../../assets/images/notificationIcon.png")} />
           <Text style={styles.beNotifiedText}>Ativar Notificação</Text>
         </TouchableOpacity>
 

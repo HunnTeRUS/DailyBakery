@@ -2,7 +2,7 @@ import { FontAwesome5, Feather } from '@expo/vector-icons';
 import * as React from 'react';
 import { Image, View, Text, TouchableOpacity } from 'react-native';
 import styles from './styles'
-import Contact from '../../assets/svgs/Contact'
+import Contact from '../../../assets/svgs/Contact'
 
 export default function TabTwoScreen() {
   return (
@@ -20,7 +20,7 @@ export default function TabTwoScreen() {
 
         <View style={{ marginTop: "5%"}}>
             <Text style={styles.title}>Entre em contato conosco!</Text>
-            <Image style={styles.contactImage} source={require('../../assets/images/contact.png')}/>     
+            <Image style={styles.contactImage} source={require('../../../assets/images/contact.png')}/>     
         </View> 
 
         

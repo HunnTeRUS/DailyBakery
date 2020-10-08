@@ -12,7 +12,7 @@ const Login = () => {
     return (
         <View style={styles.container}>
             <KeyboardAvoidingView behavior="position" style={{marginBottom: "-15%"}}>
-                <Image resizeMode="contain" source={require('../../assets/images/daily2.png')} style={styles.image} />
+                <Image resizeMode="contain" source={require('../../../assets/images/daily2.png')} style={styles.image} />
                 <View style={styles.inputs}>
                     <Text style={styles.text}>Email</Text>
                     <TextInput icon="mail" placeholder="Digite seu email"

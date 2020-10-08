@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import * as React from 'react';
 import { View, Text, Image } from 'react-native';
 import styles from './styles'
-import BeNotifiedIcon from '../../assets/svgs/BeNotified'
+import BeNotifiedIcon from '../../../assets/svgs/BeNotified'
 import { FontAwesome5 } from '@expo/vector-icons';
 
 export default function BeNotified() {

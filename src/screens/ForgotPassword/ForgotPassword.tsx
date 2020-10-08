@@ -22,7 +22,7 @@ const ForgotPassword = () => {
             {!show ? <></> : <ModalPopupInput textToShow='Digite o codigo que foi enviado em seu email' showModal={show} setShow={setShow} />}
 
             <KeyboardAvoidingView behavior="position">
-                <Image resizeMode="contain" source={require('../../assets/images/daily2.png')} style={styles.image} />
+                <Image resizeMode="contain" source={require('../../../assets/images/daily2.png')} style={styles.image} />
                 <Text style={styles.title}>Recuperação de Senha</Text>
 
                 <View style={styles.inputs}>

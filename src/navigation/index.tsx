@@ -4,7 +4,7 @@ import * as React from 'react';
 import { ColorSchemeName, StatusBar, View, Image, Animated, Easing } from 'react-native';
 
 import NotFoundScreen from '../screens/NotFoundScreen';
-import { RootStackParamList } from '../types';
+import { RootStackParamList } from '../../types';
 import BottomTabNavigator from './BottomTabNavigator';
 import LinkingConfiguration from './LinkingConfiguration';
 import MapScreen from '../screens/MapScreen/MapScreen'
@@ -57,7 +57,7 @@ function RootNavigator() {
               shadowOpacity: 0,
               borderBottomWidth: 0,
             }, 
-            headerTitle: () => (<View style={{alignItems: "center", justifyContent: "center"}}><Image resizeMode="contain"  style={{width: 170, alignSelf: "flex-end"}} source={require("../assets/images/headerImageDailyBakery.png")}/></View>),
+            headerTitle: () => (<View style={{alignItems: "center", justifyContent: "center"}}><Image resizeMode="contain"  style={{width: 170, alignSelf: "flex-end"}} source={require("../../assets/images/headerImageDailyBakery.png")}/></View>),
           }
         } component={BeNotified} />
       <Stack.Screen options={{

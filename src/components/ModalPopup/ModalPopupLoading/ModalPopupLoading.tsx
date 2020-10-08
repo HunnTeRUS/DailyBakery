@@ -20,10 +20,10 @@ const ModalPopupLoading = (props: ModalPopupLoadingInterface) => {
             <View style={styles.container}>
                 <View style={styles.subcontainer}>
                     <View style={styles.imageContainer}>
-                        <Image style={styles.bakerPic} resizeMode="contain" source={require('../../../assets/images/daily2.png')} />
+                        <Image style={styles.bakerPic} resizeMode="contain" source={require('../../../../assets/images/daily2.png')} />
                     </View>
                     <View style={styles.imageContainer}>
-                        <Image style={styles.bakerPic} resizeMode="contain" source={require('../../../assets/images/daily2.png')} />
+                        <Image style={styles.bakerPic} resizeMode="contain" source={require('../../../../assets/images/daily2.png')} />
                     </View>
                     <View style={styles.textContainer}>
                         <Text style={styles.title}>Aguarde...</Text>
