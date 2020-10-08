@@ -80,7 +80,7 @@ const MapScreen = () => {
                     <Marker key={bakery._id} coordinate={{latitude: Number(bakery.latitude), longitude: Number(bakery.longitude)}}>
                         <Image style={styles.markerImage} source={require("../../../assets/images/bakerImage.png")}/>
                         <Callout onPress={() => {
-                            navigation.navigate("BottomTabNavigator", {bakeryId: "5efa76054190182af23595af"})
+                            navigation.navigate("BottomTabNavigator", {bakery})
                         }}>
                             <View style={styles.callout}>
                                 <Text style={styles.bakeryName}>{bakery.nome}</Text>

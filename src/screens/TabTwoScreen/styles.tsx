@@ -71,6 +71,7 @@ export default StyleSheet.create({
       fontSize: 15,
       color: '#4A4040',
       marginTop: "5%",
+      alignSelf: "center",
       fontFamily: 'Poppins-Regular',
     },
 

@@ -1,12 +1,17 @@
 import { FontAwesome5 } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import * as React from 'react';
 import { StyleSheet, Image, View, Text } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import BakeryInterface from '../../Interfaces/BakeryInterfaceDAO';
 import styles from './styles'
+import formatDateFromStringDate, {formatHourFromStringDate} from '../../utils/FormatDate'
 
-export default function TabOneScreen() {
+export default function TabOneScreen({route}:any) {
   const navigation = useNavigation();
+
+  const bakery = route.params.bakery as BakeryInterface;
+
   return (
     <View style={styles.container}>
       <View style={styles.secondContainer}>
@@ -15,8 +20,13 @@ export default function TabOneScreen() {
           <Image style={styles.transparentBakerIcon} resizeMode="contain" source={require("../../../assets/images/bakerIconTransparent.png")}/>
           
           <View style={{flexDirection: "column", alignSelf: "center"}}>
-            <Text style={[styles.bakeryName, {color: "#FEC044"}]}>Padaria do Zezé</Text>
-            <Text style={styles.bakeryName}>Estamos abertos!</Text>
+            <Text style={[styles.bakeryName, {color: "#FEC044"}]}>{bakery.nome}</Text>
+            <Text style={styles.opened}>
+              Estamos
+              <Text style={{color: bakery.aberto_fechado ? "red" : "green", fontFamily: 'Poppins-Bold',}}>
+                {bakery.aberto_fechado ? " fechados!" : " abertos!"}
+              </Text>
+            </Text>
           </View>          
         </View>
 
@@ -39,7 +49,7 @@ export default function TabOneScreen() {
                   style={styles.ultimaFornadaTextLabel}>
                   Ultima fornada:
                       </Text>
-                {"\n"}{"HOJE"}{"\n"}{"10/10/2020"}
+                  {"\n"}{formatDateFromStringDate(String(bakery.ultima_fornada ? bakery.ultima_fornada : "" ))}{"\n"}{formatHourFromStringDate(String(bakery.ultima_fornada ? bakery.ultima_fornada : ""))}
               </Text>
             </View>
           </View>

@@ -40,6 +40,14 @@ export default StyleSheet.create({
       fontFamily: 'Poppins-Regular',
     },
 
+    opened: {
+      fontSize: 17,
+      textAlign: 'center',
+      marginTop: '5%',
+      fontFamily: 'Poppins-Regular',
+      color: "#BAA6A6"
+    },
+
     subTitle: {
       fontSize: 15,
       marginTop: '15%',

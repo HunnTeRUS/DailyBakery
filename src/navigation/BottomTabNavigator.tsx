@@ -7,15 +7,17 @@ import { View, Text } from 'react-native';
 import TabOneScreen from '../screens/TabOneScreen/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen/TabTwoScreen';
 import { BottomTabParamList, TabOneParamList, TabTwoParamList } from '../../types';
+import { useRoute } from '@react-navigation/native';
+import BakeryInterface from '../Interfaces/BakeryInterfaceDAO';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
 export default function BottomTabNavigator() {
-
+  const route = useRoute();
+  const routeParams: BakeryInterface = route.params as BakeryInterface
   return (
     <BottomTab.Navigator
       initialRouteName="Inicio"
-      
       tabBarOptions={
         { 
           activeTintColor: "white", 
@@ -30,12 +32,14 @@ export default function BottomTabNavigator() {
       <BottomTab.Screen
         name="Inicio"
         component={TabOneNavigator}
+        initialParams={routeParams}
         options={{
           tabBarIcon: ({ color }) => <TabBarIcon name="ios-home" color={color} />,
         }}
       />
       <BottomTab.Screen
         name="Contato"
+        initialParams={routeParams}
         component={TabTwoNavigator}
         options={{
           tabBarIcon: ({ color }) => <TabBarIcon name="ios-contacts" color={color} />,
@@ -52,11 +56,14 @@ function TabBarIcon(props: { name: string; color: string }) {
 const TabOneStack = createStackNavigator<TabOneParamList>();
 
 function TabOneNavigator() {
+  const route = useRoute();
+  const routeParams: BakeryInterface = route.params as BakeryInterface
   return (
     <TabOneStack.Navigator>
       <TabOneStack.Screen
         name="Inicio"
         component={TabOneScreen}
+        initialParams={routeParams}
         options={
           {
             headerTintColor: '#FEC044',
@@ -77,11 +84,14 @@ function TabOneNavigator() {
 const TabTwoStack = createStackNavigator<TabTwoParamList>();
 
 function TabTwoNavigator() {
+  const route = useRoute();
+  const routeParams: BakeryInterface = route.params as BakeryInterface
   return (
     <TabTwoStack.Navigator>
       <TabTwoStack.Screen
         name="Contato"
         component={TabTwoScreen}
+        initialParams={routeParams}
         options={
           {
             headerTintColor: '#FEC044',
