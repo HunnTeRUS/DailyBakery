@@ -7,7 +7,7 @@ import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import {Feather, MaterialIcons} from '@expo/vector-icons'
 import { TextInput } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import getBakeriesByLatitudeAndLongitude from "../../services/MapServices/MapServices";
+import getBakeriesByLatitudeAndLongitude, {getBakeryByName} from "../../services/MapServices/MapServices";
 import BakeryInterface from '../../Interfaces/BakeryInterface';
 import DropDownPicker from 'react-native-dropdown-picker';
 
@@ -44,6 +44,30 @@ const MapScreen = () => {
         setCurrentRegion(region)
         loadBakeries();
     }
+
+    async function loadBakeryByName(){
+        let latitude : number = 0, longitude : number = 0;
+        await getBakeryByName("").then(response => {
+            latitude: Number(response.latitude)
+            longitude: Number(response.longitude)
+        }).catch(error => {
+            console.log(error)
+        })
+
+        const obj = {
+            latitude: latitude,
+            longitude: longitude,
+            latitudeDelta: 0.04,
+            longitudeDelta: 0.04
+        }
+
+        setCurrentRegion(obj);
+        loadBakeries();
+    }
+
+    useEffect(()=>{
+        loadBakeries();
+    }, [currentRegion])
 
     useFocusEffect(
         React.useCallback(() => {
@@ -141,6 +165,8 @@ const MapScreen = () => {
                     placeholderTextColor="#999"
                     autoCapitalize="words"
                     autoCorrect={false}
+                    onChangeText={(text) => {
+                    }}
                 />
                 <TouchableOpacity onPress={() => {}} style={styles.loadButton}>
                     <MaterialIcons name="my-location" size={20} color="white"/>

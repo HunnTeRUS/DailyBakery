@@ -1,4 +1,4 @@
-import findByLatitudeAndLongitude from '../../dao/MapDAO/MapDAO'
+import findByLatitudeAndLongitude, {findBakeryByName} from '../../dao/MapDAO/MapDAO'
 import BakeryInterface from '../../Interfaces/BakeryInterface';
 import getDtoFromDao from '../../utils/BakeryDAOtoDTO'
 
@@ -17,4 +17,15 @@ export default async function getBakeriesByLatitudeAndLongitude(latitude: Number
     }
 
     return bakeries;
+}
+
+export async function getBakeryByName(bakeryName: String){
+    let bakeryObj : BakeryInterface = {};
+    if(bakeryName){
+        await findBakeryByName(bakeryName)
+            .then(response => {
+                bakeryObj = getDtoFromDao(response);
+        })
+    }
+    return bakeryObj;
 }
