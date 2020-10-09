@@ -1,6 +1,6 @@
 import { FontAwesome5, Feather } from '@expo/vector-icons';
 import * as React from 'react';
-import { Image, View, Text, TouchableOpacity } from 'react-native';
+import { Image, View, Text, TouchableOpacity, Linking } from 'react-native';
 import styles from './styles'
 import BakeryInterface from '../../Interfaces/BakeryInterfaceDAO';
 import {telphoneMask} from '../../utils/Masks'
@@ -8,6 +8,11 @@ import ufToStateName from '../../utils/UFToFullStateName'
 
 export default function TabTwoScreen({route}:any) {
   const bakery = route.params.bakery as BakeryInterface;
+  const whatsAppMessage = "Gostaria de informações a respeito da sua padaria, poderia me ajudar, por favor?"
+
+  async function sendWhatsApp(phoneNumber: Number){
+      Linking.openURL(`whatsapp://send?phone=${phoneNumber}&text=${whatsAppMessage}`)
+  }
 
   return (
     <View style={styles.container}>
@@ -55,10 +60,13 @@ export default function TabTwoScreen({route}:any) {
 
           <View style={styles.numbersContainer}>
             <View style={styles.telContainer}>
-              <Text style={{fontFamily: 'Poppins-Regular', color: '#4A4040'}}>
-                <Text style={{fontFamily: 'Poppins-Bold', fontSize: 15, color: '#4A4040',}}>Telefone:</Text> {bakery.numero_telefone ? telphoneMask(bakery.numero_telefone) : ""}</Text>
+              {bakery.numero_telefone ? <Text style={{fontFamily: 'Poppins-Regular', color: '#4A4040', alignSelf: 'center'}}>
+                <Text style={{fontFamily: 'Poppins-Bold', fontSize: 15, color: '#4A4040',}}>Telefone:</Text> {bakery.numero_telefone ? telphoneMask(bakery.numero_telefone) : "Não temos número de telefone"}
+              </Text> : <></>}
             </View>
-            <TouchableOpacity style={styles.beNotifiedButton}>
+            <TouchableOpacity onPress={() => {
+              sendWhatsApp(Number(bakery.numero_celular))
+            }} style={styles.beNotifiedButton}>
               <FontAwesome5 name="whatsapp" size={15} color="white"/>
               <Text style={styles.beNotifiedText}>Whatsapp</Text>
             </TouchableOpacity>

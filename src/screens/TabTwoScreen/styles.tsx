@@ -135,7 +135,7 @@ export default StyleSheet.create({
       flexDirection: "row",
       borderRadius: 6,
       height: 40,
-      width: 150,
+      width: "70%",
       alignSelf: "center",
       alignItems: 'center',
       justifyContent: 'center',
@@ -146,7 +146,8 @@ export default StyleSheet.create({
       color: '#FFF',
       fontSize: 15, 
       paddingLeft: "3%",
-      fontWeight: 'bold'
+      fontWeight: 'bold',
+      alignSelf: 'center'
     } ,
 
 })
