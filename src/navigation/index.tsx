@@ -15,6 +15,7 @@ import ChangePassword from '../screens/ForgotPassword/ChangePassword/ChangePassw
 import PersonalData from '../screens/BakeryRegister/PersonalData/PersonalData'
 import AccesData from '../screens/BakeryRegister/AccessData/AcessData'
 import ConfirmationScreen from "../screens/BakeryRegister/ConfirmationScreen/Confirmation"
+import Profile from '../screens/ProfileScreen/Profile'
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -115,6 +116,17 @@ function RootNavigator() {
         }, 
         headerTitle: () => (<></>),
       }}  name="AccesData" component={AccesData} />
+       <Stack.Screen options={{
+        headerShown: true,
+        headerTintColor: 'white',
+        headerStyle: {
+          backgroundColor: "#FEC044",
+          elevation: 0,
+          shadowOpacity: 0,
+          borderBottomWidth: 0,
+        }, 
+        headerTitle: () => (<></>),
+      }}  name="Profile" component={Profile} />
       <Stack.Screen options={{
         headerShown: true,
         headerTintColor: '#FEC044',

@@ -210,7 +210,7 @@ const MapScreen = () => {
                 }}
                 onChangeItem={item => {
                     if(item.value === 'profile')
-                        navigation.navigate("Root")
+                        navigation.navigate("Profile")
                     
                     if(item.value === 'logout')
                         navigation.navigate("Root")
