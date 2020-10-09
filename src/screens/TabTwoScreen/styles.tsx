@@ -135,10 +135,9 @@ export default StyleSheet.create({
       flexDirection: "row",
       borderRadius: 6,
       height: 40,
-      width: "70%",
-      alignSelf: "center",
+      width: 180,
+      justifyContent: "center",
       alignItems: 'center',
-      justifyContent: 'center',
       marginTop: '5%'
     },
 

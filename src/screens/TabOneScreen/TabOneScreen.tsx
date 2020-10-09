@@ -6,16 +6,30 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import BakeryInterface from '../../Interfaces/BakeryInterfaceDAO';
 import styles from './styles'
 import formatDateFromStringDate, {formatHourFromStringDate} from '../../utils/FormatDate'
+import ModalPopupInfos from '../../components/ModalPopup/ModalPopupInfo/ModalPopupInfos';
+import ModalPopupLoading from '../../components/ModalPopup/ModalPopupLoading/ModalPopupLoading';
+import ModalPopupWarns from '../../components/ModalPopup/ModalPopupWarn/ModalPopupWarns'
+import ModalPopupInterrogs from '../../components/ModalPopup/ModalPopupInterrog/ModalPopupInterrogs'
 
 export default function TabOneScreen({route}:any) {
   const navigation = useNavigation();
-
   const bakery = route.params.bakery as BakeryInterface;
+
+  const [show, setShow] = React.useState(false);
+  const [showWarn, setShowWarn] = React.useState(false);
+  const [showLoading, setShowLoading] = React.useState(false)
+  const [showAsk, setShowAsk] = React.useState(false)
 
   return (
     <View style={styles.container}>
+      {!show ? <></> : <ModalPopupInfos onPressCloseButton={() => { navigation.navigate('BottomTabNavigator') }} 
+      textToShow='Sua senha foi alterada com sucesso!' showModal={show} setShow={setShow} />}
+      {!showWarn ? <></> : <ModalPopupWarns functionToButton={() => { }} textToShow={""} showModal={showWarn} setShow={setShowWarn} />}
+      {!showLoading ? <></> : <ModalPopupLoading showModal={showLoading} />}
+      {!showAsk ? <></> : <ModalPopupInterrogs functionToYesButton={() =>{navigation.navigate("BeNotified", {bakery: bakery})}} textToTitle='Ativar notificações'
+        textToShow='Deseja ser notificado sobre esta padaria?' showModal={showAsk} setShow={setShowAsk}/>}
+      
       <View style={styles.secondContainer}>
-
         <View style={{flexDirection: "row", marginTop: "40%"}}>
           <Image style={styles.transparentBakerIcon} resizeMode="contain" source={require("../../../assets/images/bakerIconTransparent.png")}/>
           
@@ -32,7 +46,7 @@ export default function TabOneScreen({route}:any) {
 
         <Text style={styles.title}><Text style={{color: "#FEC044", fontFamily: 'Poppins-Bold',}}>Clique no botão abaixo</Text> para ser notificado por esta padaria</Text>
 
-        <TouchableOpacity onPress={() => {navigation.navigate("BeNotified")}} style={styles.beNotifiedButton}>
+        <TouchableOpacity onPress={() => {setShowAsk(true)}} style={styles.beNotifiedButton}>
           <Image style={styles.notificationIcon} source={require("../../../assets/images/notificationIcon.png")} />
           <Text style={styles.beNotifiedText}>Ativar Notificação</Text>
         </TouchableOpacity>

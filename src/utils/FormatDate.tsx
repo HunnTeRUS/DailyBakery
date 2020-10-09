@@ -1,6 +1,6 @@
 export default function formatDateFromStringDate(date: string) {
     const data = new Date(date)
-
+    console.log(data, date)
     if (data.toString() !== "Invalid Date") {
       const day = formatDate(data.getDate());
       const month = formatDate(data.getMonth());
@@ -25,7 +25,7 @@ export default function formatDateFromStringDate(date: string) {
       }
     }
     else {
-      return `Não há fornadas até o momento`
+      return `Não há fornadas\n até o momento`
     }
 }
 
