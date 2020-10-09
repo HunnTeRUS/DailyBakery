@@ -9,6 +9,7 @@ import { TextInput } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import getBakeriesByLatitudeAndLongitude from "../../services/MapServices/MapServices";
 import BakeryInterface from '../../Interfaces/BakeryInterface';
+import DropDownPicker from 'react-native-dropdown-picker';
 
 const MapScreen = () => {
     StatusBar.setHidden(true)
@@ -102,11 +103,45 @@ const MapScreen = () => {
                     autoCapitalize="words"
                     autoCorrect={false}
                 />
-                <TouchableOpacity onPress={() => {loadBakeries()}} style={styles.loadButton}>
+                <TouchableOpacity onPress={() => {}} style={styles.loadButton}>
                     <MaterialIcons name="my-location" size={20} color="white"/>
                 </TouchableOpacity>
             </View>
             <Image resizeMode="contain"  style={styles.imageHeader} source={require("../../../assets/images/headerImageDailyBakery.png")}/>    
+            <DropDownPicker
+                items={[
+                    {label: 'Meu Perfil', value: 'uk', icon: () => <MaterialIcons name="perm-identity" size={18} color="#FEC044" />},
+                    {label: 'Sair', value: 'france', icon: () => <MaterialIcons name="power-settings-new" size={18} color="red" />},
+                ]}
+                containerStyle={{
+                    width: '20%',
+                    height: 40,
+                    alignItems: "center",
+                    justifyContent: "center",
+                    position: "absolute",
+                    top: 10,
+                    right: 10,
+                }}
+                style={{
+                    backgroundColor: '#00000000',
+                    borderColor: "#00000000"
+                }}
+                itemStyle={{
+                    justifyContent: 'flex-start',
+                }}
+                placeholder=""
+                customArrowDown={
+                    () => (
+                        <MaterialIcons name="menu" size={35} style={{alignSelf: 'center'}}/>
+                    )
+                }
+                dropDownStyle={{
+                    backgroundColor: '#fafafa',
+                    alignSelf: 'flex-end',
+                    width: 150,
+                }}
+                onChangeItem={item => {}}
+            />
         </>
     )
 }
