@@ -110,8 +110,8 @@ const MapScreen = () => {
             <Image resizeMode="contain"  style={styles.imageHeader} source={require("../../../assets/images/headerImageDailyBakery.png")}/>    
             <DropDownPicker
                 items={[
-                    {label: 'Meu Perfil', value: 'uk', icon: () => <MaterialIcons name="perm-identity" size={18} color="#FEC044" />},
-                    {label: 'Sair', value: 'france', icon: () => <MaterialIcons name="power-settings-new" size={18} color="red" />},
+                    {label: 'Meu Perfil', value: "profile", icon: () => <MaterialIcons onPress={() =>{}} name="perm-identity" size={18} color="#FEC044" />},
+                    {label: 'Sair', value: 'logout', icon: () => <MaterialIcons name="power-settings-new" size={18} color="red" />},
                 ]}
                 containerStyle={{
                     width: '20%',
@@ -135,12 +135,21 @@ const MapScreen = () => {
                         <MaterialIcons name="menu" size={35} style={{alignSelf: 'center'}}/>
                     )
                 }
+                selectedLabelStyle={{
+                    display: "none"
+                }}
                 dropDownStyle={{
                     backgroundColor: '#fafafa',
                     alignSelf: 'flex-end',
                     width: 150,
                 }}
-                onChangeItem={item => {}}
+                onChangeItem={item => {
+                    if(item.value === 'profile')
+                        navigation.navigate("Root")
+                    
+                    if(item.value === 'logout')
+                        navigation.navigate("Root")
+                }}
             />
         </>
     )
