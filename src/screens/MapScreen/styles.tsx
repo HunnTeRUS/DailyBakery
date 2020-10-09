@@ -76,5 +76,10 @@ export default StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         marginLeft: 15
+    },
+    viewReturn: {
+        flex: 1,
+        height: 50,
+        paddingHorizontal: 20,
     }
 })
