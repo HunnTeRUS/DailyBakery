@@ -13,18 +13,11 @@ import DropDownPicker from 'react-native-dropdown-picker';
 
 const MapScreen = () => {
     StatusBar.setHidden(true)
-    const [userLocation, setUserLocation] = useState({latitude:0, longitude:0});
+    const [userLocation, setUserLocation] = useState({latitude:0, longitude:0, latitudeDelta: 0.04, longitudeDelta: 0.04});
     const [currentRegion, setCurrentRegion] = useState<Region>();
     const navigation = useNavigation();
     const [bakeries, setBakeries] = useState<BakeryInterface[]>([])
-    const [appearReturnButton, setAppearReturnButton] = useState(false);
-
-    let state = {
-        latitude: 0,
-        longitude: 0,
-        latitudeDelta: 0.04,
-        longitudeDelta: 0.04
-    };
+    const [bakeryName, setBakeryName] = useState("")
     
     async function loadBakeries(){
         const latitude = currentRegion?.latitude;
@@ -39,35 +32,22 @@ const MapScreen = () => {
         })
     }
 
-    function handleRegionChanged(region: Region){
-        setAppearReturnButton(true)
-        setCurrentRegion(region)
-        loadBakeries();
-    }
-
     async function loadBakeryByName(){
-        let latitude : number = 0, longitude : number = 0;
-        await getBakeryByName("").then(response => {
-            latitude: Number(response.latitude)
-            longitude: Number(response.longitude)
+        await getBakeryByName(bakeryName).then(response => {
+            const obj = {
+                latitude: response.latitude,
+                longitude: response.longitude,
+                latitudeDelta: 0.04,
+                longitudeDelta: 0.04
+            }
+    
+            setCurrentRegion(obj as Region);
         }).catch(error => {
             console.log(error)
         })
-
-        const obj = {
-            latitude: latitude,
-            longitude: longitude,
-            latitudeDelta: 0.04,
-            longitudeDelta: 0.04
-        }
-
-        setCurrentRegion(obj);
+        
         loadBakeries();
     }
-
-    useEffect(()=>{
-        loadBakeries();
-    }, [currentRegion])
 
     useFocusEffect(
         React.useCallback(() => {
@@ -75,15 +55,17 @@ const MapScreen = () => {
             return true;
           };
 
-          loadInitialPosition();
-          loadBakeries();
-
           BackHandler.addEventListener('hardwareBackPress', onBackPress);
     
           return () =>
             BackHandler.removeEventListener('hardwareBackPress', onBackPress);
         }, [])
       );
+    
+    useEffect(() => {
+        loadInitialPosition();
+        loadBakeries();
+    }, [])
 
     async function loadInitialPosition(){
         const {granted} = await requestPermissionsAsync();
@@ -95,7 +77,7 @@ const MapScreen = () => {
 
             const {latitude, longitude} = coords;
 
-            setUserLocation({latitude, longitude})
+            setUserLocation({latitude, longitude, latitudeDelta: 0.04, longitudeDelta: 0.04})
 
             const obj = {
                 latitude: latitude,
@@ -108,21 +90,9 @@ const MapScreen = () => {
         }
     }
 
-    async function returnToInitialPosition(){
-        const obj = {
-            latitude: userLocation.latitude,
-            longitude: userLocation.longitude,
-            latitudeDelta: 0.04,
-            longitudeDelta: 0.04
-        }
-        setAppearReturnButton(false)
-
-        setCurrentRegion(obj)
-    }
-
     return (
         <>
-            <MapView onRegionChangeComplete={handleRegionChanged} initialRegion={currentRegion} style={styles.mapView}>
+            <MapView region={currentRegion} initialRegion={currentRegion} style={styles.mapView}>
                 <Marker coordinate={
                         {
                             latitude: Number(userLocation.latitude),
@@ -151,13 +121,7 @@ const MapScreen = () => {
                     </Marker>
                 ))}
             </MapView>
-            {appearReturnButton ? <View style={[styles.searchForm, {marginBottom: 60}]}>
-                <View 
-                    style={styles.viewReturn}/>
-                <TouchableOpacity onPress={() => {returnToInitialPosition()}} style={[styles.loadButton, {backgroundColor: "grey"}]}>
-                    <MaterialIcons name="keyboard-return" size={20} color="white"/>
-                </TouchableOpacity>
-            </View> : <></>}
+            
             <View style={[styles.searchForm]}>
                 <TextInput 
                     style={styles.searchInput} 
@@ -166,9 +130,10 @@ const MapScreen = () => {
                     autoCapitalize="words"
                     autoCorrect={false}
                     onChangeText={(text) => {
+                        setBakeryName(text)
                     }}
                 />
-                <TouchableOpacity onPress={() => {}} style={styles.loadButton}>
+                <TouchableOpacity onPress={() => {loadBakeryByName()}} style={styles.loadButton}>
                     <MaterialIcons name="my-location" size={20} color="white"/>
                 </TouchableOpacity>
             </View>
