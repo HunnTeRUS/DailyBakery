@@ -16,8 +16,11 @@ import PersonalData from '../screens/BakeryRegister/PersonalData/PersonalData'
 import AccesData from '../screens/BakeryRegister/AccessData/AcessData'
 import ConfirmationScreen from "../screens/BakeryRegister/ConfirmationScreen/Confirmation"
 import Profile from '../screens/ProfileScreen/Profile'
+import ChangeProfilePassword from '../screens/ChangeProfilePasswordScreen/ChangeProfilePassword'
+import HelpMe from '../screens/HelpMeScreen/HelpMe'
+import ChangeContactInfo from '../screens/ChangeContactInfoScreen/ChangeContactInfo'
 
-export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
+export default function Navigation() {
   return (
     <NavigationContainer
       linking={LinkingConfiguration}
@@ -137,8 +140,40 @@ function RootNavigator() {
           borderBottomWidth: 0,
         }, 
         headerTitle: () => (<></>),
-        headerLeft: () => (<></>),
       }}  name="ConfirmationScreen" component={ConfirmationScreen} />
+      <Stack.Screen options={{
+        headerShown: true,
+        headerTintColor: '#FEC044',
+        headerStyle: {
+          backgroundColor: "#F4EEEE",
+          elevation: 0,
+          shadowOpacity: 0,
+          borderBottomWidth: 0,
+        }, 
+        headerTitle: () => (<></>),
+      }}  name="ChangeProfilePasswordScreen" component={ChangeProfilePassword} />
+      <Stack.Screen options={{
+        headerShown: true,
+        headerTintColor: '#FEC044',
+        headerStyle: {
+          backgroundColor: "#F4EEEE",
+          elevation: 0,
+          shadowOpacity: 0,
+          borderBottomWidth: 0,
+        }, 
+        headerTitle: () => (<></>),
+      }}  name="HelpMe" component={HelpMe} />
+      <Stack.Screen options={{
+        headerShown: true,
+        headerTintColor: '#FEC044',
+        headerStyle: {
+          backgroundColor: "#F4EEEE",
+          elevation: 0,
+          shadowOpacity: 0,
+          borderBottomWidth: 0,
+        }, 
+        headerTitle: () => (<></>),
+      }}  name="ChangeContactInfo" component={ChangeContactInfo} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
     </Stack.Navigator>
   );

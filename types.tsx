@@ -10,7 +10,10 @@ export type RootStackParamList = {
   PersonalData: any;
   AccesData: any;
   ConfirmationScreen: any;
+  ChangeContactInfo: any;
   Profile: any;
+  HelpMe: any;
+  ChangeProfilePasswordScreen: any;
 };
 
 export type BottomTabParamList = {

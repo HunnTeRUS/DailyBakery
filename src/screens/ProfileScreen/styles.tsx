@@ -26,6 +26,7 @@ export default StyleSheet.create({
 
     profileIcon:{
         alignSelf: "center",
+        marginTop: "8%",
     },
 
     userInfoContainer:{
@@ -59,7 +60,7 @@ export default StyleSheet.create({
     option: {
         width: "90%",
         flexDirection: "row",
-        height: "25%",
+        height: 55,
         alignSelf: 'center',
         marginTop: "10%",
     },
