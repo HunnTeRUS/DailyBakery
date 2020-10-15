@@ -46,6 +46,7 @@ function RootNavigator() {
           borderBottomWidth: 0,
         }, 
         headerTitle: () => (<></>),
+        header:() => (<></>),
       }}  />
       <Stack.Screen name="MapScreen"  options={
           {

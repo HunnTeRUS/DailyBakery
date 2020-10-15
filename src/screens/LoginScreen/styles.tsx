@@ -4,10 +4,12 @@ const { height, width } = Dimensions.get('window');
 
 export default StyleSheet.create({
     container: {
-        height: height,
-        width: width,
+        width: "100%",
+        height: "80%",
         backgroundColor: "#F4EEEE",
         alignItems: "center",
+        display: "flex",
+        flexDirection: "column",
     },
     text: {
         marginTop: 25,
@@ -27,26 +29,24 @@ export default StyleSheet.create({
     image: {
         marginTop: height / 8,
         height: "30%",
+        alignSelf: "center"
     },
     divLinks: {
-        flexDirection: "column",
-        textAlign: "center",
-        alignContent: "center",
-        textDecorationLine: "none",
-        marginTop: 40,
+        backgroundColor: "#F4EEEE",
         alignItems: 'center',
+        height: "20%"
     },
     nextButton: {
-        backgroundColor: '#FEC044',
+        backgroundColor: 'white',
         borderRadius: 6,
         height: 45,
         width: 150,
         alignItems: 'center',
         justifyContent: 'center',
-        alignSelf: 'center'
+        alignSelf: 'center',
     },
     nextText: {
-        color: '#FFF',
+        color: '#f46b45',
         fontSize: 15,
         fontWeight: 'bold'
     },

@@ -20,13 +20,6 @@ export default StyleSheet.create({
       backgroundColor: "#F4EEEE",
     },
 
-    notificationIcon: {
-      resizeMode: "contain",
-      width: 50,
-      height: 50,
-      alignSelf: "center",
-    },
-
     transparentBakerIcon:{
       height: 100,
       width: 100
@@ -70,11 +63,19 @@ export default StyleSheet.create({
       color: "#BAA6A6"
     },
 
+    notificationIcon: {
+      resizeMode: "contain",
+      width: 50,
+      height: 50,
+      marginTop: 15,
+      alignSelf: "center",
+    },
+
     beNotifiedButton: {
       backgroundColor: '#FEC044',
       flexDirection: "column",
-      borderRadius: 6,
-      height: 80,
+      borderRadius: 25,
+      height: 110,
       width: 200,
       alignItems: 'center',
       justifyContent: 'center',
@@ -84,7 +85,8 @@ export default StyleSheet.create({
     beNotifiedText: {
       color: '#FFF',
       fontSize: 15, 
-      fontWeight: 'bold'
+      fontFamily: "Poppins-Bold",
+      alignSelf: "center"
     } ,
 
     ultimaFornadaTextLabel: {

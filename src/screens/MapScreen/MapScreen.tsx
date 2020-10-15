@@ -10,6 +10,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import getBakeriesByLatitudeAndLongitude, {getBakeryByName} from "../../services/MapServices/MapServices";
 import BakeryInterface from '../../Interfaces/BakeryInterface';
 import DropDownPicker from 'react-native-dropdown-picker';
+import MapMarker from '../../../assets/svgs/MapMarker'
 
 const MapScreen = () => {
     StatusBar.setHidden(true)
@@ -33,20 +34,22 @@ const MapScreen = () => {
     }
 
     async function loadBakeryByName(){
-        await getBakeryByName(bakeryName).then(response => {
-            const obj = {
-                latitude: response.latitude,
-                longitude: response.longitude,
-                latitudeDelta: 0.04,
-                longitudeDelta: 0.04
-            }
-    
-            setCurrentRegion(obj as Region);
-        }).catch(error => {
-            console.log(error)
-        })
+        if(bakeryName) {
+            await getBakeryByName(bakeryName).then(response => {
+                const obj = {
+                    latitude: response.latitude,
+                    longitude: response.longitude,
+                    latitudeDelta: 0.04,
+                    longitudeDelta: 0.04
+                }
         
-        loadBakeries();
+                setCurrentRegion(obj as Region);
+            }).catch(error => {
+                console.log(error)
+            })
+        
+            loadBakeries();
+        }
     }
 
     useFocusEffect(
@@ -105,7 +108,7 @@ const MapScreen = () => {
                 </Marker>
                 {bakeries.map(bakery => (
                     <Marker key={bakery._id} coordinate={{latitude: Number(bakery.latitude), longitude: Number(bakery.longitude)}}>
-                        <Image style={styles.markerImage} source={require("../../../assets/images/bakerImage.png")}/>
+                        <MapMarker widthImage={50} heightImage={50}/>
                         <Callout onPress={() => {
                             navigation.navigate("BottomTabNavigator", {bakery})
                         }}>
@@ -143,6 +146,10 @@ const MapScreen = () => {
                     {label: 'Meu Perfil', value: "profile", icon: () => <MaterialIcons onPress={() =>{}} name="perm-identity" size={18} color="#FEC044" />},
                     {label: 'Sair', value: 'logout', icon: () => <MaterialIcons name="power-settings-new" size={18} color="red" />},
                 ]}
+                labelStyle={{
+                    fontFamily: "Poppins-Regular",
+                    fontSize: 15
+                }}
                 containerStyle={{
                     width: '20%',
                     height: 40,
@@ -154,7 +161,7 @@ const MapScreen = () => {
                 }}
                 style={{
                     backgroundColor: '#00000000',
-                    borderColor: "#00000000"
+                    borderColor: "#00000000",
                 }}
                 itemStyle={{
                     justifyContent: 'flex-start',
@@ -171,7 +178,14 @@ const MapScreen = () => {
                 dropDownStyle={{
                     backgroundColor: '#fafafa',
                     alignSelf: 'flex-end',
-                    width: 150,
+                    width: 200,
+                    shadowColor: "#000",
+                    shadowOpacity: 0.2,
+                    shadowOffset: {
+                        width: 4,
+                        height: 4
+                    },
+                    elevation: 5,
                 }}
                 onChangeItem={item => {
                     if(item.value === 'profile')

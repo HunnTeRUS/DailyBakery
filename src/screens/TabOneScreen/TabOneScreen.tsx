@@ -10,6 +10,7 @@ import ModalPopupInfos from '../../components/ModalPopup/ModalPopupInfo/ModalPop
 import ModalPopupLoading from '../../components/ModalPopup/ModalPopupLoading/ModalPopupLoading';
 import ModalPopupWarns from '../../components/ModalPopup/ModalPopupWarn/ModalPopupWarns'
 import ModalPopupInterrogs from '../../components/ModalPopup/ModalPopupInterrog/ModalPopupInterrogs'
+import { LinearGradient } from 'expo-linear-gradient';
 
 export default function TabOneScreen({route}:any) {
   const navigation = useNavigation();
@@ -37,7 +38,7 @@ export default function TabOneScreen({route}:any) {
             <Text style={[styles.bakeryName, {color: "#FEC044"}]}>{bakery.nome}</Text>
             <Text style={styles.opened}>
               Estamos
-              <Text style={{color: bakery.aberto_fechado ? "red" : "green", fontFamily: 'Poppins-Bold',}}>
+              <Text style={{color: bakery.aberto_fechado ? "grey" : "grey", fontFamily: 'Poppins-Bold',}}>
                 {bakery.aberto_fechado ? " fechados!" : " abertos!"}
               </Text>
             </Text>
@@ -47,8 +48,23 @@ export default function TabOneScreen({route}:any) {
         <Text style={styles.title}><Text style={{color: "#FEC044", fontFamily: 'Poppins-Bold',}}>Clique no botão abaixo</Text> para ser notificado por esta padaria</Text>
 
         <TouchableOpacity onPress={() => {setShowAsk(true)}} style={styles.beNotifiedButton}>
-          <Image style={styles.notificationIcon} source={require("../../../assets/images/notificationIcon.png")} />
-          <Text style={styles.beNotifiedText}>Ativar Notificação</Text>
+          <LinearGradient
+            colors={["#f46b45", "#eea849"]}
+            start={{x: 0.1,y: 0}}
+            end={{x: 0.6,y: 0}}
+            style={{
+                position: 'absolute',
+                left: 0,
+                right: 0,
+                top: 0,
+                height: "100%",
+                borderRadius: 10
+            }}
+          >
+          
+            <Image style={styles.notificationIcon} source={require("../../../assets/images/notificationIcon.png")} />
+            <Text style={styles.beNotifiedText}>Ativar Notificação</Text>
+          </LinearGradient>
         </TouchableOpacity>
 
         <Text style={styles.subTitle} >Você será notificado da proxima vez que sair pão quentinho nesta padaria!</Text>
