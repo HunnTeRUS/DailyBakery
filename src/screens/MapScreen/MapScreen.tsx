@@ -11,6 +11,7 @@ import getBakeriesByLatitudeAndLongitude, {getBakeryByName} from "../../services
 import BakeryInterface from '../../Interfaces/BakeryInterface';
 import DropDownPicker from 'react-native-dropdown-picker';
 import MapMarker from '../../../assets/svgs/MapMarker'
+import {removeLoggedUser} from '../../utils/LoggedUser'
 
 const MapScreen = () => {
     StatusBar.setHidden(true)
@@ -191,8 +192,10 @@ const MapScreen = () => {
                     if(item.value === 'profile')
                         navigation.navigate("Profile")
                     
-                    if(item.value === 'logout')
+                    if(item.value === 'logout'){
+                        removeLoggedUser('loggedUser')
                         navigation.navigate("Root")
+                    }
                 }}
             />
         </>

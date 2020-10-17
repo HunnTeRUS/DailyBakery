@@ -1,23 +1,21 @@
 import React, { useState } from 'react';
 import { View, StatusBar, KeyboardAvoidingView, Text, Image } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import styles from './styles';
 import TextInput from '../../components/TextInput'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { LinearGradient } from 'expo-linear-gradient';
 import doLoginServices from '../../services/LoginServices/LoginService'
-import ModalPopupInfos from '../../components/ModalPopup/ModalPopupInfo/ModalPopupInfos';
 import ModalPopupLoading from '../../components/ModalPopup/ModalPopupLoading/ModalPopupLoading';
 import ModalPopupWarns from '../../components/ModalPopup/ModalPopupWarn/ModalPopupWarns'
+import getLoggedUser, {removeLoggedUser, setAndChangeLoggedUser}  from '../../utils/LoggedUser'
+import verifyToken from '../../services/VerifyTokenServices/VerifyTokenService'
 
 const Login = () => {
     StatusBar.setHidden(true)
     const navigation = useNavigation();
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-
-    const [show, setShow] = React.useState(false);
-    const [textToShowOnInfo, setTextToShowOnInfo] = React.useState("");
 
     const [showWarn, setShowWarn] = React.useState(false);
     const [textToShowOnWarn, setTextToShowOnWarn] = React.useState("");
@@ -33,10 +31,38 @@ const Login = () => {
         return emailValidator(email) && passwordValidator(password)
     }
 
+    useFocusEffect(() => {
+        const isValid = async () => {
+            await verifyToken().then(response => {
+                if (response.error === "" || response.error === undefined || response.error === null){
+                    if(response.email !== "" && response.email !== undefined && response.email !== null) {
+                        setAndChangeLoggedUser(response);
+                        navigation.navigate('MapScreen')
+                    }
+                    else {
+                        removeLoggedUser('loggedUser')
+                        return;
+                    }
+                }
+                else {
+                    removeLoggedUser('loggedUser')
+                    return;
+                }
+            }).catch(error => {
+                console.log(error)
+                removeLoggedUser('loggedUser')
+                return;
+            });
+        }
+
+        isValid();
+    })
+
     async function logUser() {
         setShowLoading(true)
         await doLoginServices(email, password).then(response => {
             if (response.error === "" || response.error === undefined || response.error === null) {
+                setAndChangeLoggedUser(response)
                 setShowLoading(false)
                 navigation.navigate('MapScreen')
             }
@@ -46,7 +72,10 @@ const Login = () => {
                 setShowWarn(true)
             }
         }).catch(error => {
+            setShowLoading(false)
+            setTextToShowOnWarn("Ocorreu um erro ao tentar acessar esta funcionalidade, tente novamente mais tarde")
             console.log(error)
+            setShowWarn(true)
         }
         );
     }
@@ -54,8 +83,6 @@ const Login = () => {
     return (
         <>
             <View style={styles.container}>
-            {!show ? <></> : <ModalPopupInfos onPressCloseButton={() => { navigation.navigate('BottomTabNavigator') }} 
-                textToShow={textToShowOnInfo} showModal={show} setShow={setShow} />}
             {!showWarn ? <></> : <ModalPopupWarns functionToButton={() => { }} textToShow={textToShowOnWarn} showModal={showWarn} setShow={setShowWarn} />}
             {!showLoading ? <></> : <ModalPopupLoading showModal={showLoading} />}
             
