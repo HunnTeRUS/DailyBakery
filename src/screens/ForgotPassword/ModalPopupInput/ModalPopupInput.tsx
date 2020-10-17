@@ -2,13 +2,17 @@ import React, { useState } from 'react';
 import styles from './styles'
 import { Text, Modal, View, Image, TouchableOpacity, TextInput, KeyboardAvoidingView } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
+import Baker from '../../../../assets/svgs/Baker'
 import ModalPopupInfos from '../../../components/ModalPopup/ModalPopupInfo/ModalPopupInfos'
-import Baker from '../../../../assets/svgs/Baker';
 
 interface ModalPopupInterface {
     showModal: boolean;
     setShow(trueFalse: boolean): void;
     textToShow: string;
+    codeReceivedFromAPI: string;
+    emailReceivedFromAPI: string;
+    cnpjReceivedFromAPI: string;
+    userId: string;
 }
 
 const ModalPopup = (props: ModalPopupInterface) => {
@@ -20,6 +24,23 @@ const ModalPopup = (props: ModalPopupInterface) => {
     const errorMessage = <View style={styles.textContainerError}>
                             <Text style={styles.titleError}>Código incorreto, tente novamente</Text>
                          </View>;
+
+    function verifyCode(codeTypedByUser: string) {
+        if (props.codeReceivedFromAPI === codeTypedByUser) {
+            props.setShow(false) 
+            setTries(0)
+            navigation.navigate('ChangePasswordForgot', { email: props.emailReceivedFromAPI, userId: props.userId });
+        }
+        else {
+            if (tries <= 2) {
+                setTries(1 + tries);
+            }
+            else {
+                props.setShow(false) 
+                navigation.navigate('ForgotPassword');
+            }
+        }
+    }
 
     return (
         <Modal
@@ -45,8 +66,7 @@ const ModalPopup = (props: ModalPopupInterface) => {
                         {tries < 4 && tries !== 0 ? errorMessage : <></>}
                         <View style={styles.buttonContainer}>
                             <TouchableOpacity style={styles.nextButton} onPress={() => {
-                                setShow(false)
-                                navigation.navigate('ChangePasswordForgot');
+                                verifyCode(code)
                             }}>
                                 <Text style={styles.nextText}>Validar</Text>
                             </TouchableOpacity>

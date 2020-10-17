@@ -1,20 +1,33 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text } from 'react-native';
 import styles from './styles'
 import { MaterialIcons, Feather } from '@expo/vector-icons'
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import getLoggedUser from '../../utils/LoggedUser';
 
 const Profile = () => {
     const navigation = useNavigation();
+    const [name, setName] = useState("")
+    const [email, setEmail] = useState("") 
+
+    useFocusEffect(() =>{
+        const num = async () => {
+            const obj = await getLoggedUser();
+            setName(obj.nome ? obj.nome : "");
+            setEmail(obj.email ? obj.email : "");
+        }
+        num();
+    })
+
     return (
         <View style={styles.container}>
             <View style={styles.secondContainer}>
                 <Text style={styles.profileText}>PERFIL</Text>
                 <View style={styles.userInfoContainer}>
                     <MaterialIcons style={styles.profileIcon} name="perm-identity" color="#FEC044" size={70} />
-                    <Text style={styles.name}>Otavio Celestino</Text>
-                    <Text style={styles.email}>otavio201378@gmail.com</Text>
+                    <Text style={styles.name}>{name}</Text>
+                    <Text style={styles.email}>{email}</Text>
                 </View>
                 <TouchableOpacity style={styles.option} onPress={() => {navigation.navigate("ChangeContactInfo")}}>
                     <View style={styles.iconContainer}>

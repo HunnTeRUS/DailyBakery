@@ -7,10 +7,11 @@ import ModalPopupInfos from '../../../components/ModalPopup/ModalPopupInfo/Modal
 import ModalPopupWarns from '../../../components/ModalPopup/ModalPopupWarn/ModalPopupWarns'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import ModalPopupLoading from '../../../components/ModalPopup/ModalPopupLoading/ModalPopupLoading';
+import changePasswordServices from '../../../services/UpdatePasswordServices/UpdatePasswordServices';
 
 interface ChangePassword {
     email: string,
-    cnpj: string
+    userId: string
 }
 
 export default function ChangePassword() {
@@ -26,9 +27,40 @@ export default function ChangePassword() {
 
     const [messageToWarn, setMessageToWarn] = useState("O campo senha não pode ser diferente do campo de Confirmar Senha");
 
+    async function changePassword() {
+        setShowLoading(true);
+
+        if (password !== confirmationPassword) {
+            setShowLoading(false);
+            setShowWarn(!showWarn)
+            return;
+        }
+        else {
+            setShowLoading(true)
+            await changePasswordServices(params.email, params.userId, confirmationPassword).then(response => {
+                if(response.error !== "" && response.error !== undefined && response.error !== null) {
+                    setMessageToWarn(response.error ? response.error : "")
+                    setShowLoading(false);
+                    setShowWarn(!showWarn)
+                    return;
+                }
+                else {
+                    setShowLoading(false);
+                    setShow(!show);
+                }
+            }).catch(()=>{
+                setMessageToWarn("Ocorreu um erro ao atualizar sua senha, tente novamente mais tarde.")
+                setShowLoading(false);
+                setShowWarn(!showWarn)
+                return;
+            });
+            
+        }
+    }
+
     return (
         <View style={styles.container}>
-            {!show ? <></> : <ModalPopupInfos onPressCloseButton={() => { navigation.navigate('Login') }} textToShow='Sua senha foi alterada com sucesso!' showModal={show} setShow={setShow} />}
+            {!show ? <></> : <ModalPopupInfos onPressCloseButton={() => { navigation.navigate('Root') }} textToShow='Sua senha foi alterada com sucesso!' showModal={show} setShow={setShow} />}
             {!showWarn ? <></> : <ModalPopupWarns textToShow={messageToWarn} showModal={showWarn} setShow={setShowWarn} />}
             {!showLoading ? <></> : <ModalPopupLoading showModal={showLoading} />}
 
@@ -49,7 +81,7 @@ export default function ChangePassword() {
 
                 <TouchableOpacity disabled={(password.length >= 6) && (confirmationPassword.length >= 6) ? false : true}
                     onPress={() => {
-                        navigation.navigate('Root');
+                        changePassword()
                     }}
                     containerStyle={{
                         opacity: (password.length >= 6) && (confirmationPassword.length >= 6) && (confirmationPassword === password) ? 1 : .4,

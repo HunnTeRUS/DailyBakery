@@ -1,8 +1,8 @@
 export default interface MapInterface{
-    nome?: String,
-    email?: String,
-    senha?: String,
-    numero_celular?: String,
-    token?: String,
-    error?: String
+    nome?: string,
+    email?: string,
+    senha?: string,
+    numero_celular?: string,
+    token?: string,
+    error?: string
 }
