@@ -3,7 +3,7 @@ import styles from './styles'
 import { Text, Modal, View, Image, TouchableOpacity, TextInput, KeyboardAvoidingView } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import ModalPopupInfos from '../../../components/ModalPopup/ModalPopupInfo/ModalPopupInfos'
-import Baker from '../../../components/ImagesComponents/Baker';
+import Baker from '../../../../assets/svgs/Baker';
 
 interface ModalPopupInterface {
     showModal: boolean;

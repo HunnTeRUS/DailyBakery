@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './styles'
 import { AsyncStorage, BackHandler, TouchableOpacity} from 'react-native'
 import { Text, View } from '../../../components/Themed';
-import Baker from '../../../components/ImagesComponents/Baker'
+import Baker from '../../../../assets/svgs/Baker'
 import { useFocusEffect, useNavigation, useRoute } from '@react-navigation/native'
 
 const Confirmation = () => {

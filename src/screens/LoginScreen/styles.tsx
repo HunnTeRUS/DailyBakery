@@ -23,12 +23,15 @@ export default StyleSheet.create({
     inputs: {
         margin: 4,
         alignItems: "baseline",
+        marginTop: "-10%",
         width: '70%',
         alignSelf: 'center',
     },
     image: {
-        marginTop: height / 8,
-        height: "30%",
+        position: "relative",
+        top: 0,
+        marginTop: "13%",
+        height: 250,
         alignSelf: "center"
     },
     divLinks: {
@@ -41,6 +44,7 @@ export default StyleSheet.create({
         borderRadius: 6,
         height: 45,
         width: 150,
+        marginTop: "10%",
         alignItems: 'center',
         justifyContent: 'center',
         alignSelf: 'center',

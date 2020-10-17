@@ -20,6 +20,7 @@ export default StyleSheet.create({
     imageContainer: {
         alignItems: 'center',
         alignSelf: 'center',
+        marginTop: 5,
         justifyContent: 'flex-start',
     },
 
