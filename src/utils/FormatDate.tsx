@@ -2,7 +2,6 @@ import numberToName from '../utils/GetMonthNameByNumber'
 
 export default function formatDateFromStringDate(date: string) {
     const data = new Date(date)
-    console.log(data, date)
     if (data.toString() !== "Invalid Date") {
       const day = formatDate(data.getDate());
       const month = formatDate(data.getMonth());

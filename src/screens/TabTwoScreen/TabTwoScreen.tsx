@@ -1,15 +1,10 @@
 import { FontAwesome5, Feather, MaterialIcons } from '@expo/vector-icons';
 import * as React from 'react';
-import { Image, View, Text, TouchableOpacity, Linking } from 'react-native';
+import { Image, View, Text, Linking } from 'react-native';
 import styles from './styles'
 import BakeryInterface from '../../Interfaces/BakeryInterfaceDAO';
-import { Clock } from 'react-native-reanimated';
-import Closed from '../../../assets/svgs/Closed';
-import Confirmation from '../../../assets/svgs/Confirmation';
-import Cook from '../../../assets/svgs/Cook';
-import NotificationPhone from '../../../assets/svgs/NotificationPhone';
-import formatDateFromStringDate, { formatHourFromStringDate } from '../../utils/FormatDate';
 import Contact from '../../../assets/svgs/Contact'
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export default function TabTwoScreen({route}:any) {
   const bakery = route.params.bakery as BakeryInterface;
@@ -17,6 +12,10 @@ export default function TabTwoScreen({route}:any) {
 
   async function sendWhatsApp(phoneNumber: Number){
       Linking.openURL(`whatsapp://send?phone=${phoneNumber}&text=${whatsAppMessage}`)
+  }
+
+  async function callBakery(phoneNumber: Number){
+      Linking.openURL(`tel:${phoneNumber}`)
   }
 
   return (
@@ -54,7 +53,9 @@ export default function TabTwoScreen({route}:any) {
             </View>
           </View>
 
-        <View style={[styles.beNotifiedContainer, {height: "20%",}]}>
+        <TouchableOpacity onPress={() => {
+          sendWhatsApp(Number(bakery.numero_telefone))
+        }} style={[styles.beNotifiedContainer, {height: 85,}]}>
           <View style={[styles.notificationIconContainer, {backgroundColor: "#075e54"}]}>
              <FontAwesome5 name="whatsapp" size={60} color="white"/>
           </View>
@@ -67,9 +68,18 @@ export default function TabTwoScreen({route}:any) {
               </Text>
             <MaterialIcons name="keyboard-arrow-right" size={25} style={styles.arrow} />
           </View>
-        </View>
+        </TouchableOpacity>
 
-        <View style={[styles.fornadaContainer, {height: "20%",}]}>
+        <TouchableOpacity 
+          disabled={bakery.numero_telefone ? false : true}
+          style={[styles.fornadaContainer, {height: 85,}]}
+          containerStyle={{
+            opacity: bakery.numero_telefone ? 1 : .4,
+          }}
+          onPress={() => {
+            callBakery(Number(bakery.numero_telefone))
+          }}
+          >
           <View style={[styles.fornadaIconContainer, {backgroundColor: "#424242"}]}>
             <MaterialIcons name="local-phone" size={60} color="white"/>
           </View>
@@ -78,11 +88,11 @@ export default function TabTwoScreen({route}:any) {
               Ligar para o estabelecimento
               </Text>
             <Text style={styles.notificationInfoText}>
-              Clique aqui para ligar para esta padaria
+              {bakery.numero_telefone ? "Clique aqui para ligar para esta padaria" : "Esta padaria não tem número de telefone"}
             </Text>
             <MaterialIcons name="keyboard-arrow-right" size={25} style={styles.arrow} />
           </View>
-        </View>
+        </TouchableOpacity>
 
       </View>
 

@@ -8,8 +8,6 @@ export default async function verifyToken() {
 
     const obj = await getLoggedUser();
 
-    console.log(obj)
-
     if(obj.token && obj.email){
         await VerifyTokenDao(obj.email, obj.token)
             .then(response => {

@@ -53,7 +53,7 @@ export default StyleSheet.create({
     beNotifiedContainer: {
       width: "85%",
       marginTop: "5%",
-      height: "25%",
+      height: 100,
       alignSelf: "center",
       backgroundColor: "#F6F6F6",
       flexDirection: "row",

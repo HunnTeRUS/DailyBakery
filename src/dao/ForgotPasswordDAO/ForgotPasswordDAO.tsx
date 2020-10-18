@@ -17,7 +17,6 @@ export default async function sendVerificationEmail(email: string) {
             codigoEnviado: response.data.codigoEnviado,
             _id: response.data._id
         }
-        console.log(obj)
         return obj
     }).catch(error => {
         console.log(error.response.data.message ? error.response.data.message : error.response.data.error)
@@ -27,8 +26,6 @@ export default async function sendVerificationEmail(email: string) {
         }
         return obj
     });
-
-    console.log(obj)
 
     return obj
 }

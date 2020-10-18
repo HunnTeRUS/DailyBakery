@@ -58,20 +58,20 @@ export default function TabOneScreen({ route }: any) {
             </View>
           </View>
 
-        <View style={styles.beNotifiedContainer}>
-          <View style={styles.notificationIconContainer}>
-            <NotificationPhone widthImage={80} heightImage={80} />
-          </View>
-          <View style={styles.notificationTextContainer}>
-            <Text style={styles.notificationAlertText}>
-              Ativar notificações
-              </Text>
-            <Text style={styles.notificationInfoText}>
-              Clique aqui para ser notificado na proxima fornada!
-              </Text>
-            <MaterialIcons name="keyboard-arrow-right" size={25} style={styles.arrow} />
-          </View>
-        </View>
+        <TouchableOpacity onPress={() => {navigation.navigate("BeNotified", {bakery: bakery})}} style={styles.beNotifiedContainer}>
+            <View style={styles.notificationIconContainer}>
+              <NotificationPhone widthImage={80} heightImage={80} />
+            </View>
+            <View style={styles.notificationTextContainer}>
+              <Text style={styles.notificationAlertText}>
+                Ativar notificações
+                </Text>
+              <Text style={styles.notificationInfoText}>
+                Clique aqui para ser notificado na proxima fornada!
+                </Text>
+              <MaterialIcons name="keyboard-arrow-right" size={25} style={styles.arrow} />
+            </View>
+        </TouchableOpacity>
 
         <View style={styles.fornadaContainer}>
           <View style={styles.fornadaIconContainer}>

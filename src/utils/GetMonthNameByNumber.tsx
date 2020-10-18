@@ -1,8 +1,6 @@
 export default function numberToName(monthNumber: Number): String {
     var data: String = "";
 
-    console.log(monthNumber)
-
     if (monthNumber <= 12 && monthNumber >= 1) {
 
         switch (monthNumber) {
