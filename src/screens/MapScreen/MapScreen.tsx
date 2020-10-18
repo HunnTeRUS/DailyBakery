@@ -61,15 +61,16 @@ const MapScreen = () => {
 
           BackHandler.addEventListener('hardwareBackPress', onBackPress);
     
+          loadInitialPosition();
+          
           return () =>
             BackHandler.removeEventListener('hardwareBackPress', onBackPress);
         }, [])
       );
     
     useEffect(() => {
-        loadInitialPosition();
         loadBakeries();
-    }, [])
+    }, [currentRegion])
 
     async function loadInitialPosition(){
         const {granted} = await requestPermissionsAsync();
@@ -114,7 +115,7 @@ const MapScreen = () => {
                             navigation.navigate("BottomTabNavigator", {bakery})
                         }}>
                             <View style={styles.callout}>
-                                <Text style={styles.bakeryName}>{bakery.nome}</Text>
+                                <Text style={styles.bakeryName}>Padaria Teste</Text>
                                 <Text style={[styles.opened, {color: bakery.aberto_fechado ? "red" : "green"}]}>{bakery.aberto_fechado ? "FECHADO" : "ABERTO"}</Text>
                                 <View style={styles.seeMoreView}> 
                                     <Text style={styles.info}>Clique aqui para ver mais</Text>

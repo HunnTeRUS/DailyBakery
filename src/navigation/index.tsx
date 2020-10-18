@@ -19,6 +19,8 @@ import Profile from '../screens/ProfileScreen/Profile'
 import ChangeProfilePassword from '../screens/ChangeProfilePasswordScreen/ChangeProfilePassword'
 import HelpMe from '../screens/HelpMeScreen/HelpMe'
 import ChangeContactInfo from '../screens/ChangeContactInfoScreen/ChangeContactInfo'
+import Walkthrough from '../screens/Walkthrough/Walkthrough'
+import WalkthroughTutorial from '../screens/WalkthroughTutorial/WalkthroughTutorial'
 
 export default function Navigation() {
   return (
@@ -169,6 +171,12 @@ function RootNavigator() {
         headerTitle: () => (<></>),
       }}  name="ChangeContactInfo" component={ChangeContactInfo} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
+      <Stack.Screen options={{
+        header: () => (<></>)
+      }}  name="Walkthrough" component={Walkthrough} />
+      <Stack.Screen options={{
+        header: () => (<></>)
+      }}  name="WalkthroughTutorial" component={WalkthroughTutorial} />
     </Stack.Navigator>
   );
 }

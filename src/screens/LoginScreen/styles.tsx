@@ -30,7 +30,6 @@ export default StyleSheet.create({
     image: {
         position: "relative",
         top: 0,
-        marginTop: "13%",
         height: 250,
         alignSelf: "center"
     },

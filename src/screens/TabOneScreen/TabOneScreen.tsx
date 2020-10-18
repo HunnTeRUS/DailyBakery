@@ -40,7 +40,7 @@ export default function TabOneScreen({ route }: any) {
         <Text style={{
           fontFamily: "Poppins-Bold", color: "white", alignSelf: 'center',
           marginTop: "5%", fontSize: 17
-        }}>{bakery.nome}</Text>
+        }}>Padaria Exemplo</Text>
       </View>
 
       <View style={styles.secondContainer}>

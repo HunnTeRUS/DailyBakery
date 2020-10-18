@@ -12,6 +12,8 @@ export type RootStackParamList = {
   ConfirmationScreen: any;
   ChangeContactInfo: any;
   Profile: any;
+  WalkthroughTutorial: any;
+  Walkthrough: any;
   HelpMe: any;
   ChangeProfilePasswordScreen: any;
 };

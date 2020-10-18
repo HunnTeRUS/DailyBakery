@@ -36,6 +36,7 @@
     "react-native-keyboard-listener": "^1.1.0",
     "react-native-maps": "0.27.1",
     "react-native-reanimated": "^1.13.1",
+    "react-native-redash": "^14.2.3",
     "react-native-safe-area-context": "3.1.4",
     "react-native-screens": "~2.10.1",
     "react-native-svg": "^12.1.0",

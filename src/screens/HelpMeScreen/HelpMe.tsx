@@ -8,6 +8,7 @@ import { Linking } from 'expo';
 
 const HelpMe = () => {
     StatusBar.setHidden(true)
+    const navigation = useNavigation()
 
     return (
         <View style={styles.container}>
@@ -19,7 +20,7 @@ const HelpMe = () => {
                 <Text style={styles.subtitle}>Se for preciso, veja o tutorial novamente. Caso não esclareça sua duvida, envie-nos um email explicando seu problema!</Text>
             </View>
 
-            <TouchableOpacity style={styles.option}>
+            <TouchableOpacity style={styles.option} onPress={() => {navigation.navigate("WalkthroughTutorial")}}>
                 <View style={[styles.iconContainer]}>
                     <MaterialIcons name="video-library" size={30} style={styles.iconOption} color="white" />
                 </View>

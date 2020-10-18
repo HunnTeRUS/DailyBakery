@@ -10,10 +10,21 @@ import ModalPopupLoading from '../../components/ModalPopup/ModalPopupLoading/Mod
 import ModalPopupWarns from '../../components/ModalPopup/ModalPopupWarn/ModalPopupWarns'
 import getLoggedUser, {removeLoggedUser, setAndChangeLoggedUser}  from '../../utils/LoggedUser'
 import verifyToken from '../../services/VerifyTokenServices/VerifyTokenService'
+import { AsyncStorage } from 'react-native';
 
 const Login = () => {
     StatusBar.setHidden(true)
     const navigation = useNavigation();
+
+    const WalkthroughOrHome = async () => {
+        var variavel = await AsyncStorage.getItem('firstAccess');
+        if (variavel === null) {
+            return navigation.navigate('Walkthrough');
+        }
+    }
+
+    WalkthroughOrHome();
+
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
@@ -125,7 +136,9 @@ const Login = () => {
                     </KeyboardAvoidingView>
 
                     <TouchableOpacity 
-                        onPress={() => { logUser() }}
+                        onPress={() => { 
+                            logUser()
+                        }}
                         style={styles.nextButton}
                         disabled={submitButtonValidator() ? false : true}
                         containerStyle={{
