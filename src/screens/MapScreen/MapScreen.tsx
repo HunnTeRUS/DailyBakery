@@ -145,6 +145,7 @@ const MapScreen = () => {
             <DropDownPicker
                 items={[
                     {label: 'Meu Perfil', value: "profile", icon: () => <MaterialIcons onPress={() =>{}} name="perm-identity" size={18} color="#FEC044" />},
+                    {label: 'Recentes', value: 'recents', icon: () => <MaterialIcons name="watch-later" size={18} color="#FEC044" />},
                     {label: 'Sair', value: 'logout', icon: () => <MaterialIcons name="power-settings-new" size={18} color="red" />},
                 ]}
                 labelStyle={{

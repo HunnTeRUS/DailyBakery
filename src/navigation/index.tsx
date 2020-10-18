@@ -66,14 +66,7 @@ function RootNavigator() {
           }
         } component={BeNotified} />
       <Stack.Screen options={{
-        headerShown: true,
-        headerTintColor: '#FEC044',
-        headerStyle: {
-          backgroundColor: "#F4EEEE",
-          elevation: 0,
-          shadowOpacity: 0,
-          borderBottomWidth: 0,
-        }, 
+        header: () =>(<></>), 
         headerTitle: () => (<></>),
       }}  name="BottomTabNavigator" component={BottomTabNavigator} />
       <Stack.Screen options={{

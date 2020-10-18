@@ -1,3 +1,5 @@
+import numberToName from '../utils/GetMonthNameByNumber'
+
 export default function formatDateFromStringDate(date: string) {
     const data = new Date(date)
     console.log(data, date)
@@ -21,7 +23,7 @@ export default function formatDateFromStringDate(date: string) {
       }
 
       else {
-         return `${day}/${month}/${year}`
+         return `${day} de ${numberToName(Number(month))} de ${year}`
       }
     }
     else {
@@ -37,7 +39,7 @@ export function formatHourFromStringDate(date: string) {
         const minutos = formatDate(data.getUTCMinutes());
         const segundos = formatDate(data.getUTCSeconds());
   
-        const dataFinal = `${hora}:${minutos}:${segundos}`
+        const dataFinal = `Horario: ${hora}:${minutos}:${segundos}`
   
         return dataFinal;
     }

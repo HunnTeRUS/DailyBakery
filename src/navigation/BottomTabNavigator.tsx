@@ -20,10 +20,10 @@ export default function BottomTabNavigator() {
       initialRouteName="Inicio"
       tabBarOptions={
         { 
-          activeTintColor: "white", 
-          activeBackgroundColor: "#FEC044",
+          activeTintColor: "#FEC044", 
+          activeBackgroundColor: "white",
           style: {
-            backgroundColor: '#F4EEEE',
+            backgroundColor: 'white',
             borderTopWidth: 0
           }
         }
@@ -66,14 +66,15 @@ function TabOneNavigator() {
         initialParams={routeParams}
         options={
           {
+            headerShown: true,
             headerTintColor: '#FEC044',
             headerStyle: {
-              backgroundColor: "#F4EEEE",
+              backgroundColor: "#ff6678",
               elevation: 0,
               shadowOpacity: 0,
               borderBottomWidth: 0,
             }, 
-            headerTitle: () => (<><View></View></>),
+            headerTitle: () => (<></>),
           }
         }
       />
@@ -94,14 +95,15 @@ function TabTwoNavigator() {
         initialParams={routeParams}
         options={
           {
+            headerShown: true,
             headerTintColor: '#FEC044',
             headerStyle: {
-              backgroundColor: "#F4EEEE",
+              backgroundColor: "#ff6678",
               elevation: 0,
               shadowOpacity: 0,
               borderBottomWidth: 0,
             }, 
-            headerTitle: () => (<><View></View></>),
+            headerTitle: () => (<></>),
           }
         }
       />

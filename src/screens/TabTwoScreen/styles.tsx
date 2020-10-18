@@ -3,150 +3,121 @@ import { StyleSheet } from 'react-native'
 export default StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: "#F4EEEE",
+      backgroundColor: "#ff6678",
       display: 'flex',
       justifyContent: 'flex-end',
       alignContent: 'center',
+      alignItems: "center",
       flexDirection: "column",
     },
 
     secondContainer: {
-      height: '99%',
-      width: '90%',
+      height: '65%',
+      borderTopLeftRadius: 40,
+      borderTopRightRadius: 40,
+      width: '100%',
       alignSelf: 'center',
-      display: 'flex',
-      alignItems: 'center',
-      alignContent: 'center',
-      backgroundColor: "#F4EEEE",
+      backgroundColor: "white",
     },
 
-    contactContainer:{
-      width: "97%",
-      alignSelf: "center"
+    cookImage:{
+      paddingBottom: "3%"
     },
 
-    numbersContainer:{
+    infoContainer: {
+      width: "85%",
+      marginTop: "8%",
+      height: "25%",
       alignSelf: "center",
-      marginTop: "3%"
     },
 
-    telContainer:{
-      flexDirection: "row",
-      alignSelf: "center"
-    },
-
-    locationContainer: {
-      width: "97%",
-      alignSelf: "center"
-    },
-
-    locationTitleContainer: {
-      marginTop: "10%",
-      flexDirection: "row",
-      justifyContent: 'center',
+    openedIcon:{ 
+      width: "30%",
+      height: "100%",
+      alignSelf: "flex-start",
       alignItems: "center",
-      alignSelf: "center"
+      justifyContent: "center"
     },
 
-    locationInfoContainer: {
-      flexDirection: "column",
+    infoMainText:{
+      fontFamily: "Poppins-Bold",
+      fontSize: 17
     },
 
-    locationInfoContainerAux1:{
-      marginTop: "4%",
-      flexDirection: "row",
-      justifyContent: "space-between"
+    otherTexts:{
+      fontFamily: "Poppins-Regular",
+      marginTop: "1%",
+      fontSize: 15
     },
 
-    locationInfoContainerAux2:{
-      marginTop: "4%",
-      flexDirection: "row",
-    },
-
-    subContainer1:{
-      width: "50%",
-    },
-
-    streetName: {
-      fontSize: 15,
-      color: '#4A4040',
+    beNotifiedContainer: {
+      width: "85%",
       marginTop: "5%",
+      height: "25%",
       alignSelf: "center",
-      fontFamily: 'Poppins-Regular',
-    },
-
-    telTitle:{
-      fontSize: 17,
-      color: '#BAA6A6',
-      fontFamily: 'Poppins-Bold',
-    },
-
-    contactTitle: {
-      fontSize: 17,
-      color: '#FEC044',
-      paddingLeft: "4%",
-      fontFamily: 'Poppins-Bold',
-    },
-
-    contactImage: {
-      width: 300,
-      resizeMode: 'contain',
-      height: 150
-    },
-
-    notificationIcon: {
-      resizeMode: "contain",
-      width: 50,
-      height: 50,
-      alignSelf: "center",
-    },
-
-    transparentBakerIcon:{
-      height: 100,
-      width: 100
-    },
-
-    title: {
-      fontSize: 17,
-      color: '#4A4040',
-      textAlign: 'center',
-      marginBottom: "5%",
-      fontFamily: 'Poppins-Bold',
-    },
-
-    subTitle: {
-      fontSize: 15,
-      marginTop: '15%',
-      color: '#BAA6A6',
-      textAlign: 'center',
-      fontFamily: 'Poppins-Regular',
-    },
-
-    bakeryName: {
-      fontSize: 17,
-      textAlign: 'center',
-      marginTop: '5%',
-      fontFamily: 'Poppins-Bold',
-      color: "#BAA6A6"
-    },
-
-    beNotifiedButton: {
-      backgroundColor: '#505050',
+      backgroundColor: "#F6F6F6",
       flexDirection: "row",
-      borderRadius: 6,
-      height: 40,
-      width: 180,
-      justifyContent: "center",
-      alignItems: 'center',
-      marginTop: '5%'
+      borderRadius: 15,
+      zIndex: 1001
     },
 
-    beNotifiedText: {
-      color: '#FFF',
-      fontSize: 15, 
-      paddingLeft: "3%",
-      fontWeight: 'bold',
-      alignSelf: 'center'
-    } ,
+    notificationIconContainer: {
+      backgroundColor: "#FFBD59",
+      borderTopLeftRadius: 15,
+      borderBottomLeftRadius: 15,
+      width: '30%',
+      height: "100%",
+      zIndex: -1,
+      alignSelf: "flex-start",
+      alignItems: "center",
+      justifyContent: "center"
+    },
+
+    notificationTextContainer: {
+      flex: 1,
+      marginLeft: "5%"
+    },
+
+    notificationAlertText:{
+      fontFamily: "Poppins-Regular",
+      color: "black",
+      marginTop: "5%",
+
+    },
+
+    notificationInfoText:{
+      fontFamily: "Poppins-ExtraLight",
+      color: "black"
+    },
+
+    arrow:{
+      alignSelf: "flex-end",
+      position: "absolute",
+      bottom: 3,
+      right: 10
+    },
+
+    fornadaContainer: {
+      width: "85%",
+      marginTop: "5%",
+      height: "25%",
+      alignSelf: "center",
+      backgroundColor: "#F6F6F6",
+      flexDirection: "row",
+      borderRadius: 15,
+      zIndex: 1001
+    },
+
+    fornadaIconContainer: {
+      backgroundColor: "#ff6678",
+      borderTopLeftRadius: 15,
+      borderBottomLeftRadius: 15,
+      width: '30%',
+      height: "100%",
+      zIndex: -1,
+      alignSelf: "flex-start",
+      alignItems: "center",
+      justifyContent: "center"
+    },
 
 })
