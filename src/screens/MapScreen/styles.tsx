@@ -1,4 +1,5 @@
-import { StyleSheet } from 'react-native'
+import { Dimensions, StyleSheet } from 'react-native'
+
 
 export default StyleSheet.create({
     mapView: {
@@ -49,6 +50,7 @@ export default StyleSheet.create({
         left: 20,
         right: 20,
         zIndex: 5,
+
         flexDirection: "row"
     },
 

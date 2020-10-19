@@ -21,6 +21,7 @@ import HelpMe from '../screens/HelpMeScreen/HelpMe'
 import ChangeContactInfo from '../screens/ChangeContactInfoScreen/ChangeContactInfo'
 import Walkthrough from '../screens/Walkthrough/Walkthrough'
 import WalkthroughTutorial from '../screens/WalkthroughTutorial/WalkthroughTutorial'
+import SeachBakeryByName from '../screens/SearchBakeryByName/SearchBakeryByName'
 
 export default function Navigation() {
   return (
@@ -177,6 +178,17 @@ function RootNavigator() {
       <Stack.Screen options={{
         header: () => (<></>),
       }}  name="WalkthroughTutorial" component={WalkthroughTutorial} />
+      <Stack.Screen options={{
+        headerShown: true,
+        headerTintColor: '#FEC044',
+        headerStyle: {
+          backgroundColor: "#ff6678",
+          elevation: 0,
+          shadowOpacity: 0,
+          borderBottomWidth: 0,
+        }, 
+        headerTitle: () => (<></>),
+      }}  name="SeachBakeryByName" component={SeachBakeryByName} />
     </Stack.Navigator>
   );
 }

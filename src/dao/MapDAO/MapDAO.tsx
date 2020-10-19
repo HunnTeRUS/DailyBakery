@@ -27,10 +27,10 @@ export default async function findByLatitudeAndLongitude(latitude: Number, longi
 }
 
 export async function findBakeryByName(bakeryName: String){
-    let bakery : BakeryInterfaceDAO = {};
+    let bakeries : BakeryInterfaceDAO[] = [];
      
     if(!bakeryName)
-        return bakery;
+        return bakeries;
 
     await api({
         method: 'get',
@@ -39,13 +39,10 @@ export async function findBakeryByName(bakeryName: String){
             nome: bakeryName
         },
       }).then(response =>{
-        let bakeries : BakeryInterfaceDAO[] = [];
         bakeries = response.data.padarias;
-
-        bakery = bakeries.length > 0 ? bakeries[0] : bakery;
     }).catch(error => {
         console.log(error.response.data.message ? error.response.data.message : error.response.data.error)
     }); 
     
-    return bakery;
+    return bakeries;
 }

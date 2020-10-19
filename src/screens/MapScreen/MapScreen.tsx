@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Image, StatusBar, BackHandler } from 'react-native';
+import { View, Text, Image, StatusBar, BackHandler, KeyboardAvoidingView } from 'react-native';
 import styles from './styles'
 import MapView, { Region, Marker, Callout } from 'react-native-maps'
 import { requestPermissionsAsync, getCurrentPositionAsync, LocationAccuracy } from 'expo-location'
@@ -32,25 +32,6 @@ const MapScreen = () => {
         }).catch(error => {
             console.log(error)
         })
-    }
-
-    async function loadBakeryByName(){
-        if(bakeryName) {
-            await getBakeryByName(bakeryName).then(response => {
-                const obj = {
-                    latitude: response.latitude,
-                    longitude: response.longitude,
-                    latitudeDelta: 0.04,
-                    longitudeDelta: 0.04
-                }
-        
-                setCurrentRegion(obj as Region);
-            }).catch(error => {
-                console.log(error)
-            })
-        
-            loadBakeries();
-        }
     }
 
     useFocusEffect(
@@ -115,7 +96,7 @@ const MapScreen = () => {
                             navigation.navigate("BottomTabNavigator", {bakery})
                         }}>
                             <View style={styles.callout}>
-                                <Text style={styles.bakeryName}>Padaria Teste</Text>
+                                <Text style={styles.bakeryName}>{bakery.nome}</Text>
                                 <Text style={[styles.opened, {color: bakery.aberto_fechado ? "red" : "green"}]}>{bakery.aberto_fechado ? "FECHADO" : "ABERTO"}</Text>
                                 <View style={styles.seeMoreView}> 
                                     <Text style={styles.info}>Clique aqui para ver mais</Text>
@@ -138,11 +119,11 @@ const MapScreen = () => {
                         setBakeryName(text)
                     }}
                 />
-                <TouchableOpacity onPress={() => {loadBakeryByName()}} style={styles.loadButton}>
+                <TouchableOpacity onPress={() => {navigation.navigate("SeachBakeryByName", {bakeryName: bakeryName})}} style={styles.loadButton}>
                     <MaterialIcons name="my-location" size={20} color="white"/>
                 </TouchableOpacity>
             </View>
-            <Image resizeMode="contain"  style={styles.imageHeader} source={require("../../../assets/images/headerImageDailyBakery.png")}/>    
+            <Image resizeMode="contain"  style={styles.imageHeader} source={require("../../../assets/images/headerImageDailyBakery.png")}/>   
             <DropDownPicker
                 items={[
                     {label: 'Meu Perfil', value: "profile", icon: () => <MaterialIcons onPress={() =>{}} name="perm-identity" size={18} color="#FEC044" />},

@@ -20,12 +20,15 @@ export default async function getBakeriesByLatitudeAndLongitude(latitude: Number
 }
 
 export async function getBakeryByName(bakeryName: String){
-    let bakeryObj : BakeryInterface = {};
+    let bakeries : BakeryInterface[] = [];
+
     if(bakeryName){
         await findBakeryByName(bakeryName)
             .then(response => {
-                bakeryObj = getDtoFromDao(response);
+                for(let i = 0; i<response.length; i++) {
+                    bakeries.push(getDtoFromDao(response[i]));
+                }
         })
     }
-    return bakeryObj;
+    return bakeries;
 }

@@ -6,6 +6,7 @@ export type RootStackParamList = {
   Login: any;
   BeNotified: any;
   ForgotPassword: any;
+  SeachBakeryByName: any;
   ChangePasswordForgot: any;
   PersonalData: any;
   AccesData: any;
