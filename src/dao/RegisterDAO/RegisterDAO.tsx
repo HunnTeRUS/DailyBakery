@@ -11,10 +11,10 @@ export default async function registerDAO(name: String, phone: String, password:
     timeout: 1000
   }).then(response => {
     user = {
-      numero_celular: response.data ? response.data?.numero_celular : "",
-      email: response.data ? response.data?.email : "",
       nome: response.data ? response.data?.nome : "",
+      email: response.data ? response.data?.email : "",
       senha: response.data ? response.data?.senha : "",
+      numero_celular: response.data ? response.data?.numero_celular : "",
       error: ""
     }
     return user

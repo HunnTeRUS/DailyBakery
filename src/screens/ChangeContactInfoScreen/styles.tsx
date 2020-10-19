@@ -31,7 +31,7 @@ export default StyleSheet.create({
 
   subtitle: {
     marginTop: "3%",
-    marginBottom: "5%",
+    marginBottom: "10%",
     fontSize: 14,
     fontFamily: "Poppins-Regular",
     textAlign: "center",
@@ -125,7 +125,7 @@ export default StyleSheet.create({
     borderRadius: 6,
     height: 40,
     width: '55%',
-    marginTop: "10%",
+    marginTop: "15%",
     alignItems: 'center',
     justifyContent: 'center',
     alignSelf: 'center'
@@ -138,7 +138,7 @@ export default StyleSheet.create({
   },
 
   input: {
-    width: 300
+    width: 300,
   }, 
 
   containerInput: {

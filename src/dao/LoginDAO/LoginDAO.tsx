@@ -11,6 +11,7 @@ export default async function doLogin(email: String, password: String) {
         timeout: 1000
     }).then(response => {
         user = {
+            id_user: response.data._id,
             nome: response.data?.nome,
             email: response.data?.email,
             senha: response.data?.senha,
