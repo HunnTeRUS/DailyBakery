@@ -172,10 +172,10 @@ function RootNavigator() {
       }}  name="ChangeContactInfo" component={ChangeContactInfo} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
       <Stack.Screen options={{
-        header: () => (<></>)
+        header: () => (<></>),
       }}  name="Walkthrough" component={Walkthrough} />
       <Stack.Screen options={{
-        header: () => (<></>)
+        header: () => (<></>),
       }}  name="WalkthroughTutorial" component={WalkthroughTutorial} />
     </Stack.Navigator>
   );

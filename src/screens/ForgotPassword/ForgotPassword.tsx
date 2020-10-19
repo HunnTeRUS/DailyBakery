@@ -27,13 +27,13 @@ const ForgotPassword = () => {
         await sendVerificationEmailServices(typedEmail).then(response => {
             if (response.error !== "" && response.error !== undefined && response.error !== null) {
                 setShowLoading(false)
-                setTextToShowError(response.error ? response.error : "")
+                setTextToShowError(response.error ? response.error as string : "")
                 setShowWarn(true)
                 return;
              }
             else {
                 setUserId(response._id ? response._id : "")
-                setCodeReceivedFromApi(response.codigoEnviado ? response.codigoEnviado : "")
+                setCodeReceivedFromApi(response.codigoEnviado ? response.codigoEnviado as string: "")
                 setCnpjReceivedFromApi(response.cnpj ? response.cnpj : "")
                 setEmailReceivedFromApi(response.email ? response.email : "")
                 setShowLoading(false)
