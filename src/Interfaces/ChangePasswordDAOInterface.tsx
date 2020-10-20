@@ -1,6 +1,6 @@
 export default interface ChangePasswordDAOInterface{
     email?: string,
-    cnpj?: string,
+    senhaAntiga?: string,
     novaSenha?: string,
     error?:string,
     _id?:string

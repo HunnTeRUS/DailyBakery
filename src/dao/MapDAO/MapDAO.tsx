@@ -18,7 +18,7 @@ export default async function findByLatitudeAndLongitude(latitude: Number, longi
         bakeries = response.data.padarias;
         return bakeries 
     }).catch(error => {
-        console.log(error.response.data.message ? error.response.data.message : error.response.data.error)
+        console.log(error.response.data.message ? error.response.data.message as string : error.response.data.error as string)
 
         return bakeries       
     }); 
