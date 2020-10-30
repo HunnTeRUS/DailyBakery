@@ -47,6 +47,7 @@ const Login = () => {
             await verifyToken().then(response => {
                 if (response.error === "" || response.error === undefined || response.error === null){
                     if(response.email !== "" && response.email !== undefined && response.email !== null) {
+                        console.log(response)
                         setAndChangeLoggedUser(response);
                         navigation.navigate('MapScreen')
                     }
@@ -72,10 +73,19 @@ const Login = () => {
     async function logUser() {
         setShowLoading(true)
         await doLoginServices(email, password).then(response => {
-            if (response.error === "" || response.error === undefined || response.error === null) {
-                setAndChangeLoggedUser(response)
-                setShowLoading(false)
-                navigation.navigate('MapScreen')
+            console.log(response.error, response.email)
+            if (response.error === "" || response.error === undefined || response.error === null){
+                if(response.email !== "" && response.email !== undefined && response.email !== null) {
+                    setAndChangeLoggedUser(response)
+                    setShowLoading(false)
+                    console.log(response)
+                    navigation.navigate('MapScreen')
+                }
+                else {
+                    setShowLoading(false)
+                    setTextToShowOnWarn("Ocorreu um erro ao fazer o login, tente novamente mais tarde")
+                    setShowWarn(true)
+                }
             }
             else {
                 setShowLoading(false)
@@ -84,7 +94,7 @@ const Login = () => {
             }
         }).catch(error => {
             setShowLoading(false)
-            setTextToShowOnWarn("Ocorreu um erro ao tentar acessar esta funcionalidade, tente novamente mais tarde")
+            setTextToShowOnWarn(error)
             console.log(error)
             setShowWarn(true)
         }

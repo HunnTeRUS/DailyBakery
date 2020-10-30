@@ -19,7 +19,7 @@ export default StyleSheet.create({
       alignSelf: 'center',
       backgroundColor: "white",
     },
-
+    
     cookImage:{
       paddingBottom: "3%"
     },
@@ -58,7 +58,7 @@ export default StyleSheet.create({
       backgroundColor: "#F6F6F6",
       flexDirection: "row",
       borderRadius: 15,
-      zIndex: 1001
+      zIndex: 1
     },
 
     notificationIconContainer: {

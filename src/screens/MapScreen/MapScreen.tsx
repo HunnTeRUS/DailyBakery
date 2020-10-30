@@ -78,7 +78,7 @@ const MapScreen = () => {
 
     return (
         <>
-            <MapView region={currentRegion} initialRegion={currentRegion} style={styles.mapView}>
+            <MapView initialRegion={currentRegion} style={styles.mapView}>
                 <Marker coordinate={
                         {
                             latitude: Number(userLocation.latitude),
@@ -93,7 +93,7 @@ const MapScreen = () => {
                     <Marker key={bakery._id} coordinate={{latitude: Number(bakery.latitude), longitude: Number(bakery.longitude)}}>
                         <MapMarker widthImage={50} heightImage={50}/>
                         <Callout onPress={() => {
-                            navigation.navigate("BottomTabNavigator", {bakery})
+                            navigation.navigate("BottomTabNavigator", bakery)
                         }}>
                             <View style={styles.callout}>
                                 <Text style={styles.bakeryName}>{bakery.nome}</Text>

@@ -22,6 +22,7 @@ import ChangeContactInfo from '../screens/ChangeContactInfoScreen/ChangeContactI
 import Walkthrough from '../screens/Walkthrough/Walkthrough'
 import WalkthroughTutorial from '../screens/WalkthroughTutorial/WalkthroughTutorial'
 import SeachBakeryByName from '../screens/SearchBakeryByName/SearchBakeryByName'
+import FavoriteScreen from '../screens/FavoritesScreen/FavoriteScreen'
 
 export default function Navigation() {
   return (
@@ -189,6 +190,17 @@ function RootNavigator() {
         }, 
         headerTitle: () => (<></>),
       }}  name="SeachBakeryByName" component={SeachBakeryByName} />
+      <Stack.Screen name="FavoriteScreen" options={{
+        headerShown: true,
+        headerTintColor: '#FEC044',
+        headerStyle: {
+          backgroundColor: "#ff6678",
+          elevation: 0,
+          shadowOpacity: 0,
+          borderBottomWidth: 0,
+        }, 
+        headerTitle: () => (<></>),
+      }} component={FavoriteScreen} />
     </Stack.Navigator>
   );
 }

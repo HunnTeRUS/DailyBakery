@@ -8,13 +8,13 @@ import BakeryInterface from '../../Interfaces/BakeryInterfaceDAO';
 import formatDateFromStringDate, { formatHourFromStringDate } from '../../utils/FormatDate';
 
 export default function BeNotified() {
-  const navigation = useNavigation();
-  const route = useRoute();
-  const bakery: BakeryInterface = route.params?.bakery as BakeryInterface
+  // const navigation = useNavigation();
+  // const route = useRoute();
+  // const bakery: BakeryInterface = route.params as BakeryInterface
 
   return (
     <View style={styles.container}>
-      <View style={styles.secondContainer}>
+      {/* <View style={styles.secondContainer}>
         <View style={styles.benotifiedIcon}>
           <Text style={styles.title}>Você será notificado por esta padaria na proxima fornada que sair!</Text>
           <BeNotifiedIcon widthImage={300} />
@@ -37,7 +37,7 @@ export default function BeNotified() {
             </View>
           </View>
         </View>
-      </View>
+      </View> */}
     </View>
   );
 }

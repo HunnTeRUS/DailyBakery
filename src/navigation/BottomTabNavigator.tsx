@@ -1,8 +1,7 @@
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
-import { View, Text } from 'react-native';
 
 import TabOneScreen from '../screens/TabOneScreen/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen/TabTwoScreen';
@@ -19,8 +18,8 @@ export default function BottomTabNavigator() {
     <BottomTab.Navigator
       initialRouteName="Inicio"
       tabBarOptions={
-        { 
-          activeTintColor: "#FEC044", 
+        {
+          activeTintColor: "#FEC044",
           activeBackgroundColor: "white",
           style: {
             backgroundColor: 'white',
@@ -28,7 +27,7 @@ export default function BottomTabNavigator() {
           }
         }
       }
-      >
+    >
       <BottomTab.Screen
         name="Inicio"
         component={TabOneNavigator}
@@ -45,7 +44,7 @@ export default function BottomTabNavigator() {
           tabBarIcon: ({ color }) => <TabBarIcon name="ios-contacts" color={color} />,
         }}
       />
-    </BottomTab.Navigator> 
+    </BottomTab.Navigator>
   );
 }
 
@@ -56,8 +55,10 @@ function TabBarIcon(props: { name: string; color: string }) {
 const TabOneStack = createStackNavigator<TabOneParamList>();
 
 function TabOneNavigator() {
+  const [isFavorite, setFavorite] = React.useState(false);
   const route = useRoute();
   const routeParams: BakeryInterface = route.params as BakeryInterface
+
   return (
     <TabOneStack.Navigator>
       <TabOneStack.Screen
@@ -73,7 +74,7 @@ function TabOneNavigator() {
               elevation: 0,
               shadowOpacity: 0,
               borderBottomWidth: 0,
-            }, 
+            },
             headerTitle: () => (<></>),
           }
         }
@@ -102,7 +103,7 @@ function TabTwoNavigator() {
               elevation: 0,
               shadowOpacity: 0,
               borderBottomWidth: 0,
-            }, 
+            },
             headerTitle: () => (<></>),
           }
         }

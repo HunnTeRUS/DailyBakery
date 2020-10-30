@@ -16,6 +16,7 @@ export type RootStackParamList = {
   WalkthroughTutorial: any;
   Walkthrough: any;
   HelpMe: any;
+  FavoriteScreen: any;
   ChangeProfilePasswordScreen: any;
 };
 

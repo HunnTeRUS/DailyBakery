@@ -11,12 +11,14 @@ export default async function doLogin(email: String, password: String) {
         timeout: 1000
     }).then(response => {
         user = {
-            id_user: response.data?._id,
+            _id: response.data?._id,
             nome: response.data?.nome,
             email: response.data?.email,
             senha: response.data?.senha,
             numero_celular: response.data?.numero_celular,
             token: response.headers['x-access-token'],
+            favoritos: response.data.favoritos,
+            recentes: response.data.recentes,
             error: ""
         }
         return user

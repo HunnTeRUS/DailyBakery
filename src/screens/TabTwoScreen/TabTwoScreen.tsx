@@ -7,7 +7,7 @@ import Contact from '../../../assets/svgs/Contact'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export default function TabTwoScreen({route}:any) {
-  const bakery = route.params.bakery as BakeryInterface;
+  const bakery = route.params as BakeryInterface;
   const whatsAppMessage = "Gostaria de informações a respeito da sua padaria, poderia me ajudar, por favor?"
 
   async function sendWhatsApp(phoneNumber: Number){
