@@ -79,6 +79,19 @@ export default StyleSheet.create({
         alignItems: "center",
         marginLeft: 15
     },
+    favoritesButton: {
+        width: 50,
+        bottom: 80,
+        right: 20,
+        zIndex: 5,
+        position: "absolute",
+        height: 50,
+        backgroundColor: "#505050",
+        borderRadius: 25,
+        justifyContent: "center",
+        alignItems: "center",
+        marginLeft: 15
+    },
     viewReturn: {
         flex: 1,
         height: 50,

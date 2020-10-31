@@ -6,7 +6,6 @@ export default async function changeContactInfoDAO(id: string, token: string, nu
     throw "Número de celular não podem ser vazios."
 
   var data = {};
-  console.log(numero_celular + 'DAO');
   
   if (numero_celular && id) {
     data = {

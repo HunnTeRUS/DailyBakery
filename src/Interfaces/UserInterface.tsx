@@ -10,7 +10,7 @@ export default interface UserInterface{
     recentes?: Array<recents>;
 }
 
-interface favorites{
+export interface favorites{
     _id: String
 }
 

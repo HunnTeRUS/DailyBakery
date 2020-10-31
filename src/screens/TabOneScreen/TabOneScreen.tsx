@@ -1,35 +1,42 @@
 import { MaterialIcons } from '@expo/vector-icons';
-import { useFocusEffect, useNavigation, useRoute } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import * as React from 'react';
-import { StyleSheet, Image, View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, AsyncStorage } from 'react-native';
 import BakeryInterface from '../../Interfaces/BakeryInterfaceDAO';
 import styles from './styles'
 import formatDateFromStringDate, { formatHourFromStringDate } from '../../utils/FormatDate'
-import ModalPopupInfos from '../../components/ModalPopup/ModalPopupInfo/ModalPopupInfos';
-import ModalPopupLoading from '../../components/ModalPopup/ModalPopupLoading/ModalPopupLoading';
-import ModalPopupWarns from '../../components/ModalPopup/ModalPopupWarn/ModalPopupWarns'
-import ModalPopupInterrogs from '../../components/ModalPopup/ModalPopupInterrog/ModalPopupInterrogs'
 import Cook from '../../../assets/svgs/Cook'
 import Clock from '../../../assets/svgs/Clock'
 import NotificationPhone from '../../../assets/svgs/NotificationPhone'
 import Closed from '../../../assets/svgs/Closed'
 import Confirmation from '../../../assets/svgs/Confirmation'
 import favoriteBakeryServices, { unFavoriteBakeryServices } from '../../services/FavoriteBakeryServices/FavoriteBakeryServices'
-import getLoggedUser from '../../utils/LoggedUser';
+import getLoggedUser, { setAndChangeLoggedUser } from '../../utils/LoggedUser';
+import UserInterface, {favorites} from '../../Interfaces/UserInterface';
+import FavoriteNavigationInterface from '../../Interfaces/FavoriteNavigationInterface';
+import { useEffect } from 'react';
 
 export default function TabOneScreen({ route }: any) {
   const navigation = useNavigation();
   const bakery = route.params as BakeryInterface;
-  const [show, setShow] = React.useState(false);
-  const [showWarn, setShowWarn] = React.useState(false);
-  const [showLoading, setShowLoading] = React.useState(false)
-  const [showAsk, setShowAsk] = React.useState(false)
   const [isFavorite, setFavorite] = React.useState(false)
+  const obj : FavoriteNavigationInterface = {}
+  
+  let objUser : UserInterface = {};
+  let user : any;
 
-  useFocusEffect(() => {
+    async function getUser(){
+      user = await AsyncStorage.getItem('loggedUser');
+    
+      objUser = JSON.parse(user) as UserInterface;
+
+      user = await getLoggedUser();
+  }
+
+  useEffect(() => {
     async function verifyFavorites() {
-      const loggedUser = await getLoggedUser();
-      const favoritos = loggedUser.favoritos ? loggedUser.favoritos : [];
+     getUser()
+      const favoritos = objUser.favoritos ? objUser.favoritos : [];
       const leng = favoritos?.length ? favoritos?.length : 0;
 
       for (let i = 0; i < leng; i++) {
@@ -40,39 +47,66 @@ export default function TabOneScreen({ route }: any) {
     }
 
     verifyFavorites()
-  })
+  }, [])
 
-  function favoriteBakery(bakeryId: String) {
-    navigation.navigate("FavoriteScreen")
-    // favoriteBakeryServices(bakeryId).then(response => {
-      
-    // }).catch(error => {
-    //   console.log(error)
-    // });
+  async function favoriteBakery(bakeryId: String) {
+    getUser();
+
+    await favoriteBakeryServices(bakeryId).then(response => {  
+      if (response[0].error === "" || response[0].error === undefined || response[0].error === null){
+          let favoritesIdList : Array<favorites> = [];
+          for (let i = 0; i<response.length; i++) {
+              favoritesIdList.push({_id: response[i]._id})
+          }
+          objUser.favoritos = favoritesIdList
+          setAndChangeLoggedUser(objUser)
+
+          const obj : FavoriteNavigationInterface = {}
+
+          obj.bakeries = response
+          obj.method = "add"
+          obj.bakeryName = String(bakery.nome)
+
+          navigation.navigate("FavoriteScreen", obj)
+        }
+    }).catch(error => {
+      console.log(error)
+    });
   }
 
-  function unFavoriteBakery(bakeryId: String) {
-    navigation.navigate("FavoriteScreen")
-    // unFavoriteBakeryServices(bakeryId).then(response => {
-    //   if (Number(response) === 200) {
-    //   }
-    //   else {
+  async function unFavoriteBakery(bakeryId: String) {
+    getUser();
+    await unFavoriteBakeryServices(bakeryId).then(response => {
+      if(response.length > 0) {
+        if (response[0].error === "" || response[0].error === undefined || response[0].error === null){
+          let favoritesIdList : Array<favorites> = [];
+          for (let i = 0; i<response.length; i++) {
+              favoritesIdList.push({_id: response[i]._id})
+          }
+          objUser.favoritos = favoritesIdList
+          setAndChangeLoggedUser(objUser)
 
-    //   }
-    // }).catch(error => {
-    //   console.log(error)
-    // });
+          const obj : FavoriteNavigationInterface = {}
+
+          obj.bakeries = response
+          obj.method = "delete"
+          obj.bakeryName = String(bakery.nome)
+
+          navigation.navigate("FavoriteScreen", obj)
+        }
+      }
+      else {
+        objUser.favoritos = []
+        setAndChangeLoggedUser(objUser)
+        navigation.navigate("FavoriteScreen", obj )
+      }
+      }).catch(error => {
+        console.log(error)
+      });
   }
 
   return (
     <View style={styles.container}>
-      {!show ? <></> : <ModalPopupInfos onPressCloseButton={() => { navigation.navigate('BottomTabNavigator') }}
-        textToShow='Sua senha foi alterada com sucesso!' showModal={show} setShow={setShow} />}
-      {!showWarn ? <></> : <ModalPopupWarns functionToButton={() => { }} textToShow={""} showModal={showWarn} setShow={setShowWarn} />}
-      {!showLoading ? <></> : <ModalPopupLoading showModal={showLoading} />}
-      {!showAsk ? <></> : <ModalPopupInterrogs functionToYesButton={() => { navigation.navigate("BeNotified", { bakery: bakery }) }} textToTitle='Ativar notificações'
-        textToShow='Deseja ser notificado sobre esta padaria?' showModal={showAsk} setShow={setShowAsk} />}
-
       <View style={styles.cookImage}>
         <Cook widthImage={300} />
         <Text style={{
@@ -97,7 +131,7 @@ export default function TabOneScreen({ route }: any) {
             }
           }}>
         <MaterialIcons name={isFavorite ? "star" : "star-border"} color="#FEC044" size={50} style={{}} />
-        <Text style={{fontFamily: "Poppins-Bold", color: "#FEC044"}}>Favoritar</Text>
+        <Text style={{fontFamily: "Poppins-Bold", color: "#FEC044"}}>{isFavorite ? "Remover" : "Favoritar"}</Text>
       </TouchableOpacity>
       
       <View style={styles.secondContainer}>

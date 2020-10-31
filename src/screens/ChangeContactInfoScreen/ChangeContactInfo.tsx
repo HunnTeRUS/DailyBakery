@@ -52,7 +52,6 @@ const ChangeContactInfo = () => {
 
     async function pressButtonAndChangeContactInfo(){
         setShowLoading(true);
-        console.log(cellPhone + ' interface');
         
         await changeContactInfoServices(removeMask(cellPhone)).then(response => {
             if(response.error === "" || response.error === undefined || response.error === null){

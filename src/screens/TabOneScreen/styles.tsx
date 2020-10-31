@@ -75,6 +75,7 @@ export default StyleSheet.create({
 
     notificationTextContainer: {
       flex: 1,
+      paddingRight: 4,
       marginLeft: "5%"
     },
 

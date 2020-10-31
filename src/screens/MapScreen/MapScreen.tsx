@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Image, StatusBar, BackHandler, KeyboardAvoidingView } from 'react-native';
+import { View, Text, Image, StatusBar, BackHandler, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
 import styles from './styles'
 import MapView, { Region, Marker, Callout } from 'react-native-maps'
 import { requestPermissionsAsync, getCurrentPositionAsync, LocationAccuracy } from 'expo-location'
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import {Feather, MaterialIcons} from '@expo/vector-icons'
 import { TextInput } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import getBakeriesByLatitudeAndLongitude, {getBakeryByName} from "../../services/MapServices/MapServices";
 import BakeryInterface from '../../Interfaces/BakeryInterface';
 import DropDownPicker from 'react-native-dropdown-picker';
 import MapMarker from '../../../assets/svgs/MapMarker'
 import {removeLoggedUser} from '../../utils/LoggedUser'
+import FavoriteNavigationInterface from '../../Interfaces/FavoriteNavigationInterface';
 
 const MapScreen = () => {
     StatusBar.setHidden(true)
@@ -20,7 +20,8 @@ const MapScreen = () => {
     const navigation = useNavigation();
     const [bakeries, setBakeries] = useState<BakeryInterface[]>([])
     const [bakeryName, setBakeryName] = useState("")
-    
+    const obj : FavoriteNavigationInterface = {}
+
     async function loadBakeries(){
         const latitude = currentRegion?.latitude;
         const longitude = currentRegion?.longitude;
@@ -124,6 +125,9 @@ const MapScreen = () => {
                 </TouchableOpacity>
             </View>
             <Image resizeMode="contain"  style={styles.imageHeader} source={require("../../../assets/images/headerImageDailyBakery.png")}/>   
+            <TouchableOpacity onPress={() => {navigation.navigate("FavoriteScreen", obj )}} style={styles.favoritesButton}>
+                    <MaterialIcons name="star-border" size={20} color="white"/>
+            </TouchableOpacity>
             <DropDownPicker
                 items={[
                     {label: 'Meu Perfil', value: "profile", icon: () => <MaterialIcons onPress={() =>{}} name="perm-identity" size={18} color="#FEC044" />},

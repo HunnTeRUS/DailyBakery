@@ -26,7 +26,7 @@ export default function formatDateFromStringDate(date: string) {
       }
     }
     else {
-      return `Não há fornadas\n até o momento`
+      return `Não há fornadas até o momento`
     }
 }
 

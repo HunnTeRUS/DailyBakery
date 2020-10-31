@@ -1,3 +1,4 @@
+import BakeryInterface from '../../Interfaces/BakeryInterfaceDAO';
 import FavoritesInterface from '../../Interfaces/FavoritesInterface';
 import api from '../../services/apiDailyBakery'
 
@@ -13,7 +14,7 @@ export default async function favoriteBakery(userId: String, bakeryId: String, u
         _id: bakeryId,
     };
 
-    var objectFavorite : FavoritesInterface = { }
+    var objectFavorite : BakeryInterface[] = []
 
     await api({
         method: 'post', //you can set what request you want to be
@@ -26,17 +27,17 @@ export default async function favoriteBakery(userId: String, bakeryId: String, u
             _id: userId
         }
     }).then(response => {
-        objectFavorite = {
-            favoritos: response.data.favoritos,
-        }
+        objectFavorite = response.data as BakeryInterface[]
 
         return objectFavorite
     }).catch(error => {
         console.log(error.response.data.message ? error.response.data.message : error.response.data.error)
 
-        objectFavorite = {
-            error: error.response.data.message ? error.response.data.message : error.response.data.error
-        }
+        const newObject : BakeryInterface = {}
+
+        newObject.error = error.response.data.message ? error.response.data.message : error.response.data.error;
+
+        objectFavorite.push(newObject)
 
         return objectFavorite
     });
@@ -55,7 +56,8 @@ export async function unFavoriteBakery(userId: String, bakeryId: String, userTok
     var data = {
         _id: bakeryId,
     };
-    var objectFavorite : FavoritesInterface = { }
+
+    var objectFavorite : BakeryInterface[] = []
 
     await api({
         method: 'delete', //you can set what request you want to be
@@ -68,17 +70,17 @@ export async function unFavoriteBakery(userId: String, bakeryId: String, userTok
             _id: userId
         }
     }).then(response => {
-        objectFavorite = {
-            favoritos: response.data.favoritos,
-        }
+        objectFavorite = response.data as BakeryInterface[]
 
         return objectFavorite
     }).catch(error => {
         console.log(error.response.data.message ? error.response.data.message : error.response.data.error)
 
-        objectFavorite = {
-            error: error.response.data.message ? error.response.data.message : error.response.data.error
-        }
+        const newObject : BakeryInterface = {}
+
+        newObject.error = error.response.data.message ? error.response.data.message : error.response.data.error;
+
+        objectFavorite.push(newObject)
 
         return objectFavorite
     });

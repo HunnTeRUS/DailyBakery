@@ -37,6 +37,47 @@ export default StyleSheet.create({
     alignItems: "center"
   },
 
+  addedDeletedBakeryView:{
+    width: "90%",
+    marginTop: "5%",
+    height: 130,
+    backgroundColor: "#F6F6F6",
+    alignSelf: "center",
+    borderRadius: 15,
+    zIndex: 1001,
+    justifyContent: "space-between",
+    flexDirection: "row",
+  },
+
+  addedDeletedIconContainer: {
+    borderTopLeftRadius: 15,
+    borderBottomLeftRadius: 15,
+    width: '35%',
+    height: "100%",
+    paddingTop: '2%',
+    zIndex: -1,
+    alignSelf: "flex-start",
+    alignItems: "center",
+    justifyContent: "center"
+  },
+
+  addedDeletedTextContainer: {
+    flex: 1,
+    paddingHorizontal: 5,
+    justifyContent: "center"
+  },
+
+  addedDeletedTitleText:{
+    fontFamily: "Poppins-Bold",
+    textAlign: "center"
+  },
+
+  addedDeletedSubTitleText: {
+    fontFamily: "Poppins-Regular",
+    textAlign: "center",
+    color: '#808080'
+  },
+
   searchForm: {
     zIndex: 5,
     marginBottom: "5%",
@@ -111,14 +152,15 @@ export default StyleSheet.create({
 
   notificationTextContainer: {
     flex: 1,
-    marginLeft: "5%"
+    marginLeft: "5%",
+    flexDirection: "column",
+    justifyContent: "flex-start"
   },
 
   notificationAlertText:{
     fontFamily: "Poppins-Regular",
     color: "black",
     marginTop: "5%",
-
   },
 
   notificationInfoText:{
@@ -128,9 +170,35 @@ export default StyleSheet.create({
 
   arrow:{
     alignSelf: "flex-end",
-    position: "absolute",
-    bottom: 3,
-    right: 10
+  },
+
+  controlButtonDelete:{
+    alignSelf: "flex-end",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: 'center'
+  },
+
+  buttonsContainer: {
+    flex: 1,
+    paddingBottom: 4,
+    flexDirection: "row",
+    width: "100%",
+    justifyContent: "space-between"
+  },
+
+  controlButtonSee: {
+    alignSelf: "flex-end",
+    flexDirection: "row",
+    justifyContent: "center",
+    paddingRight: 5,
+    alignItems: 'center'
+  },
+
+  controlButtonText: {
+    fontFamily: "Poppins-Bold",
+    color: "#FEC044",
+    fontSize: 16
   },
 
   fornadaContainer: {

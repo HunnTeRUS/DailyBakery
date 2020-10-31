@@ -16,7 +16,6 @@ const Confirmation = () => {
 
   const isValid = async () => {
     await verifyToken().then(response => {
-      console.log(response.email);
 
       if (response.error === "" || response.error === undefined || response.error === null) {
         if (response.email !== "" && response.email !== undefined && response.email !== null) {

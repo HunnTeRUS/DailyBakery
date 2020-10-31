@@ -43,6 +43,7 @@ function RootNavigator() {
       <Stack.Screen name="Root" component={Login} options={{
         headerShown: true,
         headerTintColor: '#FEC044',
+        headerBackTitle: " ",
         headerStyle: {
           backgroundColor: "#F4EEEE",
           elevation: 0,
@@ -54,12 +55,14 @@ function RootNavigator() {
       }}  />
       <Stack.Screen name="MapScreen"  options={
           {
-            headerShown: false
+            headerShown: false,
+            headerBackTitle: " ",
           }
         } component={MapScreen} />
       <Stack.Screen name="BeNotified" options={
           {
             headerTintColor: '#FEC044',
+            headerBackTitle: " ",
             headerStyle: {
               backgroundColor: "#F4EEEE",
               elevation: 0,
@@ -76,6 +79,7 @@ function RootNavigator() {
       <Stack.Screen options={{
         headerShown: true,
         headerTintColor: '#FEC044',
+        headerBackTitle: " ",
         headerStyle: {
           backgroundColor: "#F4EEEE",
           elevation: 0,
@@ -87,6 +91,7 @@ function RootNavigator() {
       <Stack.Screen options={{
         headerShown: true,
         headerTintColor: '#FEC044',
+        headerBackTitle: " ",
         headerStyle: {
           backgroundColor: "#F4EEEE",
           elevation: 0,
@@ -98,6 +103,7 @@ function RootNavigator() {
       <Stack.Screen options={{
         headerShown: true,
         headerTintColor: '#FEC044',
+        headerBackTitle: " ",
         headerStyle: {
           backgroundColor: "#F4EEEE",
           elevation: 0,
@@ -109,6 +115,7 @@ function RootNavigator() {
       <Stack.Screen options={{
         headerShown: true,
         headerTintColor: '#FEC044',
+        headerBackTitle: " ",
         headerStyle: {
           backgroundColor: "#F4EEEE",
           elevation: 0,
@@ -120,6 +127,7 @@ function RootNavigator() {
        <Stack.Screen options={{
         headerShown: true,
         headerTintColor: 'white',
+        headerBackTitle: " ",
         headerStyle: {
           backgroundColor: "#FEC044",
           elevation: 0,
@@ -131,6 +139,7 @@ function RootNavigator() {
       <Stack.Screen options={{
         headerShown: true,
         headerTintColor: '#FEC044',
+        headerBackTitle: " ",
         headerStyle: {
           backgroundColor: "#F4EEEE",
           elevation: 0,
@@ -142,6 +151,7 @@ function RootNavigator() {
       <Stack.Screen options={{
         headerShown: true,
         headerTintColor: '#FEC044',
+        headerBackTitle: " ",
         headerStyle: {
           backgroundColor: "#F4EEEE",
           elevation: 0,
@@ -153,6 +163,7 @@ function RootNavigator() {
       <Stack.Screen options={{
         headerShown: true,
         headerTintColor: '#FEC044',
+        headerBackTitle: " ",
         headerStyle: {
           backgroundColor: "#F4EEEE",
           elevation: 0,
@@ -164,6 +175,7 @@ function RootNavigator() {
       <Stack.Screen options={{
         headerShown: true,
         headerTintColor: '#FEC044',
+        headerBackTitle: " ",
         headerStyle: {
           backgroundColor: "#F4EEEE",
           elevation: 0,
@@ -182,6 +194,7 @@ function RootNavigator() {
       <Stack.Screen options={{
         headerShown: true,
         headerTintColor: '#FEC044',
+        headerBackTitle: " ",
         headerStyle: {
           backgroundColor: "#ff6678",
           elevation: 0,
@@ -193,6 +206,8 @@ function RootNavigator() {
       <Stack.Screen name="FavoriteScreen" options={{
         headerShown: true,
         headerTintColor: '#FEC044',
+        headerBackTitle: " ",
+        
         headerStyle: {
           backgroundColor: "#ff6678",
           elevation: 0,

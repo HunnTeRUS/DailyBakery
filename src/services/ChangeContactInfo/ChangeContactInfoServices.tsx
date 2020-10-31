@@ -9,7 +9,6 @@ export default async function changeContactInfoServices(numero_celular: string) 
         objResponse.error = "Número de celular não pode ser vazio"
         return objResponse;
     }
-    console.log(numero_celular + ' service');
     
     const obj = await getLoggedUser();
 

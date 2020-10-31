@@ -1,7 +1,7 @@
 import api from '../../services/apiDailyBakery'
 import UserInterface from '../../Interfaces/UserInterface';
 
-export default async function verifyToken(email: String, token: String){
+export default async function verifyToken(email: String, token: string){
     let obj : UserInterface = {}
 
     if(!token)
@@ -12,12 +12,14 @@ export default async function verifyToken(email: String, token: String){
         email: email
     }).then(response =>{
         obj =  {
-            nome: response.data.nome,
-            email: response.data.email,
-            senha: response.data.senha,
-            numero_celular: response.data.numero_celular,
+            _id: response.data?._id,
+            nome: response.data?.nome,
+            email: response.data?.email,
+            senha: response.data?.senha,
+            numero_celular: response.data?.numero_celular,
             token: token,
-            error: ""
+            favoritos: response.data.favoritos,
+            recentes: response.data.recentes,
           }
 
           return obj 
