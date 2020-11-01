@@ -1,4 +1,4 @@
-import { useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import * as React from 'react';
 import { View, Text, Image, ScrollView, TouchableOpacity, AsyncStorage } from 'react-native';
 import styles from './styles'
@@ -7,20 +7,62 @@ import BakeryInterface from '../../Interfaces/BakeryInterfaceDAO';
 import NotFound from '../../../assets/svgs/NotFound';
 import { useEffect } from 'react';
 import getBakeriesByIdList from '../../services/BakeryServices/BakeryServices'
-import UserInterface from '../../Interfaces/UserInterface';
+import UserInterface, { favorites } from '../../Interfaces/UserInterface';
 import Closed from '../../../assets/svgs/Closed';
 import Deny from '../../../assets/svgs/Deny';
 import Confirmation from '../../../assets/svgs/Confirmation';
 import FavoriteNavigationInterface from '../../Interfaces/FavoriteNavigationInterface';
-import getLoggedUser from '../../utils/LoggedUser';
+import getLoggedUser, { setAndChangeLoggedUser } from '../../utils/LoggedUser';
+import { unFavoriteBakeryServices } from '../../services/FavoriteBakeryServices/FavoriteBakeryServices';
 
 export default function FavoriteScreen() {
   const route = useRoute();
   const params: FavoriteNavigationInterface = route.params as FavoriteNavigationInterface;
   const [favoritesList, setFavoritesList] = React.useState<BakeryInterface[]>([])
+  const [method, setMethod] = React.useState("")
+  const [bakeryName, setBakeryName] = React.useState("")
+  const navigation = useNavigation()
+
+  useEffect(() => {
+    setMethod(params.method ? params.method : "")
+    setBakeryName(params.bakeryName ? params.bakeryName : "")
+  }, [])
+
+  let objUser : UserInterface = {};
+  let user : any
+  async function getUser(){
+    user = await AsyncStorage.getItem('loggedUser');
+  
+    objUser = JSON.parse(user) as UserInterface;
+  }
+
+  async function unFavoriteBakery(bakeryId: String) {
+    getUser();
+    await unFavoriteBakeryServices(bakeryId).then(response => {
+      if(response.length > 0) {
+        if (response[0].error === "" || response[0].error === undefined || response[0].error === null){
+            let newFavorites : Array<favorites> = []  
+            for(let i = 0; i<response.length; i++) {
+              newFavorites.push({_id: response[i]._id})
+            }  
+            
+            objUser.favoritos = newFavorites;
+            setAndChangeLoggedUser(objUser)
+            setFavoritesList(response)
+        }
+      }
+      else {
+        objUser.favoritos = [];
+        setAndChangeLoggedUser(objUser)
+        setFavoritesList([])
+      }
+      }).catch(error => {
+        console.log(error)
+      });
+  }
 
   function renderAlertMessage() {
-    if (params.bakeries && params.method === "add")
+    if (params.bakeries && method === "add")
       return (
         <View style={styles.addedDeletedBakeryView}>
           <View style={styles.addedDeletedIconContainer}>
@@ -29,11 +71,11 @@ export default function FavoriteScreen() {
 
           <View style={styles.addedDeletedTextContainer}>
             <Text style={styles.addedDeletedTitleText}>Padaria Adicionada!</Text>
-            <Text style={styles.addedDeletedSubTitleText}>A padaria {params.bakeryName} foi adicionada à sua lista de favoritos!</Text>
+            <Text style={styles.addedDeletedSubTitleText}>A padaria {bakeryName} foi adicionada à sua lista de favoritos!</Text>
           </View>
         </View>);
 
-    else if (params.bakeries && params.method === "delete")
+    else if (params.bakeries && method === "delete")
       return (
       <View style={styles.addedDeletedBakeryView}>
         <View style={styles.addedDeletedIconContainer}>
@@ -42,7 +84,7 @@ export default function FavoriteScreen() {
 
         <View style={styles.addedDeletedTextContainer}>
           <Text style={styles.addedDeletedTitleText}>Padaria Excluida!</Text>
-          <Text style={styles.addedDeletedSubTitleText}>A padaria {params.bakeryName} foi excluida da sua lista de favoritos!</Text>
+          <Text style={styles.addedDeletedSubTitleText}>A padaria {bakeryName} foi excluida da sua lista de favoritos!</Text>
         </View>
       </View>)
 
@@ -102,10 +144,14 @@ export default function FavoriteScreen() {
                     {bakery.aberto_fechado ? "Fechado" : "Aberto"}
                   </Text>
                   <View style={styles.buttonsContainer}>
-                    <TouchableOpacity style={styles.controlButtonDelete}>
+                    <TouchableOpacity style={styles.controlButtonDelete} onPress={() => {
+                      unFavoriteBakery(bakery._id)
+                      setMethod("delete")
+                      setBakeryName(String(bakery.nome))
+                    }}>
                       <Text style={[styles.controlButtonText, { color: "#ff6678" }]}>Excluir</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.controlButtonSee}>
+                    <TouchableOpacity style={styles.controlButtonSee} onPress={() => {navigation.navigate("BottomTabNavigator", bakery)}}>
                       <Text style={styles.controlButtonText}>Ver mais</Text>
                       <MaterialIcons name="keyboard-arrow-right" size={20} color="#FEC044" />
                     </TouchableOpacity>
