@@ -15,5 +15,6 @@ export interface favorites{
 }
 
 interface recents{
-    _id: String
+    _id: String,
+    implementationDate: Date
 }

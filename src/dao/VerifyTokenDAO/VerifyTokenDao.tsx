@@ -19,7 +19,6 @@ export default async function verifyToken(email: String, token: string){
             numero_celular: response.data?.numero_celular,
             token: token,
             favoritos: response.data.favoritos,
-            recentes: response.data.recentes,
           }
 
           return obj 

@@ -1,4 +1,7 @@
+import { Dimensions } from 'react-native';
 import { StyleSheet } from 'react-native'
+
+const { width } = Dimensions.get("window");
 
 export default StyleSheet.create({
     container: {
@@ -18,6 +21,13 @@ export default StyleSheet.create({
       width: '100%',
       alignSelf: 'center',
       backgroundColor: "white",
+    },
+
+    scrollView: {
+      width: width,
+      flex: 1,
+      alignSelf: "center",
+      marginHorizontal: 20,
     },
     
     cookImage:{

@@ -1,7 +1,7 @@
 import BakeryInterface from '../../Interfaces/BakeryInterface';
 import listBakeriesByIds from '../../dao/BakeryDAO/BakeryDAO'
 
-export default async function getBakeriesByIdList(idList: Array<String>) {
+export default async function getBakeriesByIdList(idList: Array<string>) {
 
     let bakeries : BakeryInterface[] = [];
     

@@ -18,7 +18,6 @@ export default async function doLogin(email: String, password: String) {
             numero_celular: response.data?.numero_celular,
             token: response.headers['x-access-token'],
             favoritos: response.data.favoritos,
-            recentes: response.data.recentes,
             error: ""
         }
         return user
