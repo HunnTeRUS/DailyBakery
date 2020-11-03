@@ -3,14 +3,12 @@ import UserInterface from "../Interfaces/UserInterface";
 
 export default async function getLoggedUser(){
     let objUser : UserInterface = {};
-    let user;
     var i;
 
-    for(i = 0; i<3; i++)
-        user = await AsyncStorage.getItem('loggedUser');
+    const user = await AsyncStorage.getItem('loggedUser');
     
     if(user)
-        objUser = JSON.parse(user) as UserInterface;
+        return JSON.parse(user) as UserInterface;
 
     return objUser;
 }
@@ -28,10 +26,6 @@ export async function setAndChangeLoggedUser(obj: UserInterface){
     }
 }
 
-export async function removeLoggedUser(indexId: string){
-    const objResponse = await AsyncStorage.getItem(indexId); 
-
-    if(objResponse) {
-        await AsyncStorage.removeItem(indexId)
-    }
+export async function removeLoggedUser(){
+    await AsyncStorage.removeItem('loggedUser')
 }

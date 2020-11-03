@@ -1,5 +1,6 @@
 import { Dimensions, StyleSheet } from 'react-native'
 
+import {StatusBar} from 'react-native';
 
 export default StyleSheet.create({
     mapView: {
@@ -7,7 +8,8 @@ export default StyleSheet.create({
     },
     imageHeader:{
         width: 170,
-        position: "absolute"
+        position: "absolute",
+        top: StatusBar.currentHeight? StatusBar.currentHeight : 0  + 20
     },
     markerImage:{
         width: 54,

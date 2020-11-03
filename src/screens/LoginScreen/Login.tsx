@@ -47,22 +47,22 @@ const Login = () => {
             await verifyToken().then(response => {
                 if (response.error === "" || response.error === undefined || response.error === null){
                     if(response.email !== "" && response.email !== undefined && response.email !== null) {
-                        console.log(response)
+                        response.recentes = []
                         setAndChangeLoggedUser(response);
                         navigation.navigate('MapScreen')
                     }
                     else {
-                        removeLoggedUser('loggedUser')
+                        removeLoggedUser()
                         return;
                     }
                 }
                 else {
-                    removeLoggedUser('loggedUser')
+                    removeLoggedUser()
                     return;
                 }
             }).catch(error => {
                 console.log(error)
-                removeLoggedUser('loggedUser')
+                removeLoggedUser()
                 return;
             });
         }
@@ -76,9 +76,9 @@ const Login = () => {
             console.log(response.error, response.email)
             if (response.error === "" || response.error === undefined || response.error === null){
                 if(response.email !== "" && response.email !== undefined && response.email !== null) {
+                    response.recentes = []
                     setAndChangeLoggedUser(response)
                     setShowLoading(false)
-                    console.log(response)
                     navigation.navigate('MapScreen')
                 }
                 else {

@@ -157,6 +157,13 @@ export default StyleSheet.create({
     justifyContent: "flex-start"
   },
 
+  loaderContainer: {
+    height: "100%",
+    flex: 1,
+    borderTopRightRadius: 15,
+    borderBottomRightRadius: 15
+  },
+
   notificationAlertText:{
     fontFamily: "Poppins-Regular",
     color: "black",

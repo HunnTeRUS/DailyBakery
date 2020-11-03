@@ -41,7 +41,6 @@ export default ({widthImage, heightImage} : ClockInterface)  => {
           y1={596.28}
           x2={748.44}
           y2={179.26}
-          xlinkHref="#prefix__a"
         />
       </Defs>
       <Path

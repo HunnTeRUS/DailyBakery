@@ -68,7 +68,6 @@ export default StyleSheet.create({
       backgroundColor: "#F6F6F6",
       flexDirection: "row",
       borderRadius: 15,
-      zIndex: 1
     },
 
     notificationIconContainer: {

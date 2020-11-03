@@ -1,13 +1,16 @@
 import { useState } from 'react';
-import getLoggedUser from '../../utils/LoggedUser';
+import BakeryInterface from '../../Interfaces/BakeryInterfaceDAO';
+import getLoggedUser, { setAndChangeLoggedUser } from '../../utils/LoggedUser';
+import getBakeriesByIdList from '../BakeryServices/BakeryServices'
 
-export default async function recentBakeriesServices(bakeryId: String) {
+export default async function addRecentBakery(bakeryId: String) {
     if (!bakeryId) {
         throw "ID da padaria nao pode ser vazio";
     }
 
-    const loggedUser = await getLoggedUser();
+    var loggedUser = await getLoggedUser();
     const recents = loggedUser.recentes;
+    console.log(loggedUser)
     const listLength = recents?.length ? recents?.length : 0;
     let exists = false;
 
@@ -55,11 +58,45 @@ export default async function recentBakeriesServices(bakeryId: String) {
                     _id: bakeryId,
                     implementationDate: new Date()
                 }
+                
+                loggedUser.recentes = recents;
+                setAndChangeLoggedUser(loggedUser)
+                console.log(loggedUser)
+
                 return recents; 
             }
         }
         //Se a lista tiver vazia, so insere e retorna
+        console.log(loggedUser)
+
         recents.push({_id: bakeryId, implementationDate: new Date()});
+        loggedUser.recentes = recents;
+        setAndChangeLoggedUser(loggedUser)
     }
+    console.log(loggedUser)
+
     return recents;    
+}
+
+export async function getRecentBakeries(){
+    var loggedUser = await getLoggedUser();
+    const recents = loggedUser.recentes;
+    var bakeries : BakeryInterface[] = [];
+    var ids : Array<string> = [];
+
+    if(recents) {
+        for(let i = 0; i<recents?.length; i++) {
+            ids.push(String(recents[i]._id));
+        }
+
+        await getBakeriesByIdList(ids).then(response => {
+            bakeries = response
+            return bakeries;
+        }).catch(error => {
+           console.log(error)
+           return bakeries 
+        });
+    } else 
+        return bakeries;
+
 }

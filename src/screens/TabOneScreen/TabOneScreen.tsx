@@ -18,6 +18,7 @@ import FavoriteNavigationInterface from '../../Interfaces/FavoriteNavigationInte
 import { useEffect } from 'react';
 import { ScrollView } from 'react-native';
 import { Linking } from 'react-native';
+import addRecentBakery from '../../services/RecentsServices/RecentBakeriesServices'
 
 export default function TabOneScreen({ route }: any) {
   const navigation = useNavigation();
@@ -138,7 +139,7 @@ export default function TabOneScreen({ route }: any) {
       </TouchableOpacity>
       
       <View style={styles.secondContainer}>
-        <ScrollView contentContainerStyle={{ alignItems: "center" }} bounces={true} style={styles.scrollView}>
+        <ScrollView showsVerticalScrollIndicator={false} overScrollMode="never" contentContainerStyle={{ alignItems: "center" }} bounces={true} style={styles.scrollView}>
           <View style={styles.beNotifiedContainer}>
             <View style={[styles.notificationIconContainer, { backgroundColor: "#F6F6F6" }]}>
               {bakery.aberto_fechado ? <Closed widthImage={80} heightImage={80} /> : <Confirmation widthImage={100} heightImage={100} />}
@@ -153,7 +154,9 @@ export default function TabOneScreen({ route }: any) {
             </View>
           </View>
 
-          <TouchableOpacity onPress={() => { navigation.navigate("BeNotified", { bakery: bakery }) }} style={styles.beNotifiedContainer}>
+          <TouchableOpacity onPress={() => { 
+            addRecentBakery(bakery._id)
+            navigation.navigate("BeNotified", { bakery: bakery }) }} style={styles.beNotifiedContainer}>
             <View style={styles.notificationIconContainer}>
               <NotificationPhone widthImage={80} heightImage={80} />
             </View>
@@ -168,7 +171,7 @@ export default function TabOneScreen({ route }: any) {
             </View>
           </TouchableOpacity>
 
-          <View style={styles.fornadaContainer}>
+          <View style={styles.beNotifiedContainer}>
             <View style={styles.fornadaIconContainer}>
               <Clock widthImage={100} heightImage={100} />
             </View>
@@ -185,7 +188,8 @@ export default function TabOneScreen({ route }: any) {
           </View>
 
           <TouchableOpacity onPress={() => {       
-            Linking.openURL(`https://www.google.com/maps/dir/?api=1&travelmode=walking&dir_action=navigate&destination=${bakery.location?.coordinates[0]},${bakery.location?.coordinates[1]}`) }} style={styles.beNotifiedContainer}>
+            Linking.openURL(`https://www.google.com/maps/dir/?api=1&travelmode=walking&dir_action=navigate&destination=${bakery.location?.coordinates[0]},${bakery.location?.coordinates[1]}`) }} 
+            style={[styles.beNotifiedContainer]}>
             <View style={[styles.notificationIconContainer, { backgroundColor: "#a3f6be" }]}>
               <Map widthImage={80} heightImage={80} />
             </View>
@@ -199,6 +203,12 @@ export default function TabOneScreen({ route }: any) {
               <MaterialIcons name="keyboard-arrow-right" size={25} style={styles.arrow} />
             </View>
           </TouchableOpacity>
+
+          <View style={{height: 50}}>
+
+          </View>
+
+          
         </ScrollView>
       </View>
 

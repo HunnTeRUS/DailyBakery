@@ -29,7 +29,8 @@ const ChangeContactInfo = () => {
     useEffect(() => {
         const num = async () => {
             const obj = await getLoggedUser();
-            setCellPhone(celPhoneMask(obj?.numero_celular ? obj?.numero_celular : ""));
+            const tel = obj?.numero_celular ? obj?.numero_celular : ""
+            setCellPhone(celPhoneMask(tel.startsWith("55") ?  tel.substring(2) : tel));
         }
         num();
     }, []);
@@ -92,7 +93,7 @@ const ChangeContactInfo = () => {
                     <Text style={styles.textCep}>Numero de celular</Text>
                     <TextInput style={styles.input} value={cellPhone} icon="smartphone" placeholder="Numero de celular" validator={text => {
                         if (!valorParaGambiarra) {
-                            text = celPhoneMask(cellPhone);
+                            text = celPhoneMask(text);
                             setValorParaGambiarra(true)
                         }
                         setCellPhone(celPhoneMask(text));

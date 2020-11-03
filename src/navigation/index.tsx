@@ -23,6 +23,7 @@ import Walkthrough from '../screens/Walkthrough/Walkthrough'
 import WalkthroughTutorial from '../screens/WalkthroughTutorial/WalkthroughTutorial'
 import SeachBakeryByName from '../screens/SearchBakeryByName/SearchBakeryByName'
 import FavoriteScreen from '../screens/FavoritesScreen/FavoriteScreen'
+import RecentScreen from '../screens/RecentScreen/RecentScreen'
 
 export default function Navigation() {
   return (
@@ -73,7 +74,7 @@ function RootNavigator() {
           }
         } component={BeNotified} />
       <Stack.Screen options={{
-        header: () =>(<></>), 
+        header: () =>(<></>),
         headerTitle: () => (<></>),
       }}  name="BottomTabNavigator" component={BottomTabNavigator} />
       <Stack.Screen options={{
@@ -216,6 +217,19 @@ function RootNavigator() {
         }, 
         headerTitle: () => (<></>),
       }} component={FavoriteScreen} />
+      <Stack.Screen name="RecentScreen" options={{
+        headerShown: true,
+        headerTintColor: '#FEC044',
+        headerBackTitle: " ",
+        
+        headerStyle: {
+          backgroundColor: "#ff6678",
+          elevation: 0,
+          shadowOpacity: 0,
+          borderBottomWidth: 0,
+        }, 
+        headerTitle: () => (<></>),
+      }} component={RecentScreen} />
     </Stack.Navigator>
   );
 }

@@ -39,6 +39,7 @@
     "react-native-redash": "^14.2.3",
     "react-native-safe-area-context": "3.1.4",
     "react-native-screens": "~2.10.1",
+    "react-native-shimmer-placeholder": "git+https://github.com/tomzaku/react-native-shimmer-placeholder.git#expo",
     "react-native-svg": "^12.1.0",
     "react-native-web": "~0.13.12"
   },

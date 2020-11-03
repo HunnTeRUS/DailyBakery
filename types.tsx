@@ -4,6 +4,7 @@ export type RootStackParamList = {
   NotFound: any;
   MapScreen: any;
   Login: any;
+  RecentScreen: any;
   BeNotified: any;
   ForgotPassword: any;
   SeachBakeryByName: any;

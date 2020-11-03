@@ -4,16 +4,15 @@ import { View, Text, Image, ScrollView, TouchableOpacity, AsyncStorage } from 'r
 import styles from './styles'
 import { MaterialIcons } from '@expo/vector-icons';
 import BakeryInterface from '../../Interfaces/BakeryInterfaceDAO';
-import NotFound from '../../../assets/svgs/NotFound';
 import { useEffect } from 'react';
 import getBakeriesByIdList from '../../services/BakeryServices/BakeryServices'
 import UserInterface, { favorites } from '../../Interfaces/UserInterface';
-import Closed from '../../../assets/svgs/Closed';
 import Deny from '../../../assets/svgs/Deny';
 import Confirmation from '../../../assets/svgs/Confirmation';
 import FavoriteNavigationInterface from '../../Interfaces/FavoriteNavigationInterface';
 import getLoggedUser, { setAndChangeLoggedUser } from '../../utils/LoggedUser';
 import { unFavoriteBakeryServices } from '../../services/FavoriteBakeryServices/FavoriteBakeryServices';
+import ShimmerPlaceHolder from 'react-native-shimmer-placeholder';
 
 export default function FavoriteScreen() {
   const route = useRoute();
@@ -59,21 +58,21 @@ export default function FavoriteScreen() {
       }).catch(error => {
         console.log(error)
       });
-  }
+    }
 
-  function renderAlertMessage() {
-    if (params.bakeries && method === "add")
-      return (
-        <View style={styles.addedDeletedBakeryView}>
-          <View style={styles.addedDeletedIconContainer}>
-            <Confirmation widthImage={120} heightImage={120} />
-          </View>
+    function renderAlertMessage() {
+      if (params.bakeries && method === "add")
+        return (
+          <View style={styles.addedDeletedBakeryView}>
+            <View style={styles.addedDeletedIconContainer}>
+              <Confirmation widthImage={120} heightImage={120} />
+            </View>
 
-          <View style={styles.addedDeletedTextContainer}>
-            <Text style={styles.addedDeletedTitleText}>Padaria Adicionada!</Text>
-            <Text style={styles.addedDeletedSubTitleText}>A padaria {bakeryName} foi adicionada à sua lista de favoritos!</Text>
-          </View>
-        </View>);
+            <View style={styles.addedDeletedTextContainer}>
+              <Text style={styles.addedDeletedTitleText}>Padaria Adicionada!</Text>
+              <Text style={styles.addedDeletedSubTitleText}>A padaria {bakeryName} foi adicionada à sua lista de favoritos!</Text>
+            </View>
+          </View>);
 
     else if (params.bakeries && method === "delete")
       return (
@@ -99,10 +98,10 @@ export default function FavoriteScreen() {
         setFavoritesList(params.bakeries)
       else {
         const favoritos = user.favoritos;
-        let ids: Array<String> = [];
+        let ids: Array<string> = [];
         if (favoritos) {
           for (let i = 0; i < favoritos?.length; i++) {
-            ids.push(favoritos[i]._id)
+            ids.push(favoritos[i]._id as string)
           }
 
           await getBakeriesByIdList(ids).then(response => {
@@ -124,40 +123,56 @@ export default function FavoriteScreen() {
 
       <View style={styles.secondContainer}>
         {favoritesList?.length === 0 ?
-          <View style={styles.notFoundContainer}>
-            <NotFound widthImage={250} heightImage={250} />
-            <Text style={styles.notFoundText}>Nenhum resultado encontrado!</Text>
-          </View>
+          <ScrollView contentContainerStyle={{ alignItems: "center" }} bounces={true} style={styles.scrollView}>
+            <View style={styles.beNotifiedContainer}>
+              <View style={styles.notificationIconContainer}>
+                <Image style={styles.bakerImage} resizeMode="contain" source={require("../../../assets/images/bakerIconTransparent.png")} />
+              </View>
+              <ShimmerPlaceHolder style={styles.loaderContainer} autoRun={true} visible={false}/>
+            </View>
+            <View style={styles.beNotifiedContainer}>
+              <View style={styles.notificationIconContainer}>
+                <Image style={styles.bakerImage} resizeMode="contain" source={require("../../../assets/images/bakerIconTransparent.png")} />
+              </View>
+              <ShimmerPlaceHolder style={styles.loaderContainer} autoRun={true} visible={false}/>
+            </View>
+            <View style={styles.beNotifiedContainer}>
+              <View style={styles.notificationIconContainer}>
+                <Image style={styles.bakerImage} resizeMode="contain" source={require("../../../assets/images/bakerIconTransparent.png")} />
+              </View>
+              <ShimmerPlaceHolder style={styles.loaderContainer} autoRun={true} visible={false}/>
+            </View>
+          </ScrollView>
           :
           <ScrollView contentContainerStyle={{ alignItems: "center" }} bounces={true} style={styles.scrollView}>
             {renderAlertMessage()}
             {favoritesList?.map(bakery => (
-              <View key={bakery._id} style={styles.beNotifiedContainer}>
-                <View style={styles.notificationIconContainer}>
-                  <Image style={styles.bakerImage} resizeMode="contain" source={require("../../../assets/images/bakerIconTransparent.png")} />
-                </View>
-                <View style={styles.notificationTextContainer}>
-                  <Text style={styles.notificationAlertText}>
-                    {bakery.nome}
-                  </Text>
-                  <Text style={{ fontFamily: "Poppins-Regular", color: "#808080", }}>
-                    {bakery.aberto_fechado ? "Fechado" : "Aberto"}
-                  </Text>
-                  <View style={styles.buttonsContainer}>
-                    <TouchableOpacity style={styles.controlButtonDelete} onPress={() => {
-                      unFavoriteBakery(bakery._id)
-                      setMethod("delete")
-                      setBakeryName(String(bakery.nome))
-                    }}>
-                      <Text style={[styles.controlButtonText, { color: "#ff6678" }]}>Excluir</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.controlButtonSee} onPress={() => {navigation.navigate("BottomTabNavigator", bakery)}}>
-                      <Text style={styles.controlButtonText}>Ver mais</Text>
-                      <MaterialIcons name="keyboard-arrow-right" size={20} color="#FEC044" />
-                    </TouchableOpacity>
+                <View key={bakery._id} style={styles.beNotifiedContainer}>
+                  <View style={styles.notificationIconContainer}>
+                    <Image style={styles.bakerImage} resizeMode="contain" source={require("../../../assets/images/bakerIconTransparent.png")} />
+                  </View>
+                  <View style={styles.notificationTextContainer}>
+                    <Text style={styles.notificationAlertText}>
+                      {bakery.nome}
+                    </Text>
+                    <Text style={{ fontFamily: "Poppins-Regular", color: "#808080", }}>
+                      {bakery.aberto_fechado ? "Fechado" : "Aberto"}
+                    </Text>
+                    <View style={styles.buttonsContainer}>
+                      <TouchableOpacity style={styles.controlButtonDelete} onPress={() => {
+                        unFavoriteBakery(bakery._id)
+                        setMethod("delete")
+                        setBakeryName(String(bakery.nome))
+                      }}>
+                        <Text style={[styles.controlButtonText, { color: "#ff6678" }]}>Excluir</Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity style={styles.controlButtonSee} onPress={() => {navigation.navigate("BottomTabNavigator", bakery)}}>
+                        <Text style={styles.controlButtonText}>Ver mais</Text>
+                        <MaterialIcons name="keyboard-arrow-right" size={20} color="#FEC044" />
+                      </TouchableOpacity>
+                    </View>
                   </View>
                 </View>
-              </View>
             ))}
           </ScrollView>
         }
