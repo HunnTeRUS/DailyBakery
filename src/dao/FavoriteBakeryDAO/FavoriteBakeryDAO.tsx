@@ -70,17 +70,11 @@ export async function unFavoriteBakery(userId: String, bakeryId: String, userTok
             _id: userId
         }
     }).then(response => {
-        objectFavorite = response.data as BakeryInterface[]
+        objectFavorite = response.data
 
         return objectFavorite
     }).catch(error => {
         console.log(error.response.data.message ? error.response.data.message : error.response.data.error)
-
-        const newObject : BakeryInterface = {}
-
-        newObject.error = error.response.data.message ? error.response.data.message : error.response.data.error;
-
-        objectFavorite.push(newObject)
 
         return objectFavorite
     });

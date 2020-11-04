@@ -198,7 +198,7 @@ export default StyleSheet.create({
     paddingBottom: 4,
     flexDirection: "row",
     width: "100%",
-    justifyContent: "space-between"
+    justifyContent: "flex-end"
   },
 
   controlButtonSee: {

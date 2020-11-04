@@ -33,7 +33,7 @@ const MapScreen = () => {
 
         setBakeries(response)
         
-        if([].length === 0)
+        if(response.length === 0)
             setShow(true)
     }
 

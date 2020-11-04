@@ -1,5 +1,7 @@
 import { useState } from 'react';
+import { AsyncStorage } from 'react-native';
 import BakeryInterface from '../../Interfaces/BakeryInterfaceDAO';
+import UserInterface from '../../Interfaces/UserInterface';
 import getLoggedUser, { setAndChangeLoggedUser } from '../../utils/LoggedUser';
 import getBakeriesByIdList from '../BakeryServices/BakeryServices'
 
@@ -10,7 +12,6 @@ export default async function addRecentBakery(bakeryId: String) {
 
     var loggedUser = await getLoggedUser();
     const recents = loggedUser.recentes;
-    console.log(loggedUser)
     const listLength = recents?.length ? recents?.length : 0;
     let exists = false;
 
@@ -21,36 +22,37 @@ export default async function addRecentBakery(bakeryId: String) {
     //Caso 5: Lista existir, nãoe estar vazia e não existir uma padaria com o id recebido por parametro
     //Caso 6: Lista existir, estar lotada e ter uma padaria com o id recebido por parametro
     //Caso 7: Lista existir, estar lotada e nao existir uma padaria com o id recebido por parametro
-    if(recents) {
+    if (recents) {
         //Verificar se a lista esta vazia
-        if(listLength > 0) {
+        if (listLength > 0) {
             //Pega o primeiro valor do vetor de recentes e a data de implementação dele na lista
-            const [higherTime, setHigherTime] = useState(
-                {time: recents[0].implementationDate.getTime(),
-                listPosition: 0});
-            
+            var higherTime = {
+                time: new Date(recents[0].implementationDate).getTime(),
+                listPosition: 0
+            };
+
             //Verifica se ja existe uma padaria com este id dentro da lista
-            for(let i = 0; i<recents?.length; i++) {
-                if(recents[i]._id === bakeryId) {
+            for (let i = 0; i < recents?.length; i++) {
+                if (recents[i]._id === bakeryId) {
                     exists = true;
                 }
             }
 
             //Se ja existir uma padaria com este id na lista, apenas retorna
-            if(exists)
+            if (exists)
                 return recents
 
             //Verifica se a lista esta lotada
-            if(recents.length === 10) {
+            if (recents.length === 10) {
                 //Itera a lista procurando qual a padaria que tem a maior diferença de tempo entre a data de implementação
                 //e a data de hoje
-                for(let i = 0; i<recents?.length; i++) {
-                    if(higherTime.time < (Date.now() - recents[i].implementationDate.getTime())) {
-                        setHigherTime({
+                for (let i = 0; i < recents?.length; i++) {
+                    if (higherTime.time < (Date.now() - recents[i].implementationDate.getTime())) {
+                        higherTime = {
                             time: Date.now() - recents[i].implementationDate.getTime(),
                             listPosition: i
-                        })
-                    }                   
+                        }
+                    }
                 }
 
                 //A padaria com a data mais antiga, ele substitui pela nova padaria e retorna
@@ -58,45 +60,46 @@ export default async function addRecentBakery(bakeryId: String) {
                     _id: bakeryId,
                     implementationDate: new Date()
                 }
-                
+
                 loggedUser.recentes = recents;
                 setAndChangeLoggedUser(loggedUser)
-                console.log(loggedUser)
 
-                return recents; 
+                return recents;
             }
         }
         //Se a lista tiver vazia, so insere e retorna
-        console.log(loggedUser)
 
-        recents.push({_id: bakeryId, implementationDate: new Date()});
+        recents.push({ _id: bakeryId, implementationDate: new Date() });
         loggedUser.recentes = recents;
         setAndChangeLoggedUser(loggedUser)
     }
-    console.log(loggedUser)
 
-    return recents;    
+    return recents;
 }
 
-export async function getRecentBakeries(){
+export async function getRecentBakeries() {
     var loggedUser = await getLoggedUser();
-    const recents = loggedUser.recentes;
-    var bakeries : BakeryInterface[] = [];
-    var ids : Array<string> = [];
+    var bakeries: BakeryInterface[] = [];
+    var ids: Array<string> = [];
 
-    if(recents) {
-        for(let i = 0; i<recents?.length; i++) {
-            ids.push(String(recents[i]._id));
-        }
+    if (loggedUser) {
+        const recents = loggedUser.recentes;
 
-        await getBakeriesByIdList(ids).then(response => {
-            bakeries = response
+        if (recents) {
+            for (let i = 0; i < recents?.length; i++) {
+                ids.push(String(recents[i]._id));
+            }
+
+            await getBakeriesByIdList(ids).then(response => {
+                console.log(response)
+                bakeries = response
+                return bakeries;
+            }).catch(error => {
+                console.log(error)
+                return bakeries
+            });
+        } else
             return bakeries;
-        }).catch(error => {
-           console.log(error)
-           return bakeries 
-        });
-    } else 
-        return bakeries;
-
+    }
+    return bakeries;
 }

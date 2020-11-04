@@ -25,36 +25,34 @@ export default function TabOneScreen({ route }: any) {
   const bakery = route.params as BakeryInterface;
   const [isFavorite, setFavorite] = React.useState(false)
   const obj : FavoriteNavigationInterface = {}
-  
-  let objUser : UserInterface = {};
-  let user : any;
 
-    async function getUser(){
-      user = await AsyncStorage.getItem('loggedUser');
-    
-      objUser = JSON.parse(user) as UserInterface;
+  useFocusEffect(() => {
+    var loggedUser : UserInterface = {}
 
-      user = await getLoggedUser();
-  }
+    async function getLogged(){
+        loggedUser = await getLoggedUser();
+    }
 
-  useEffect(() => {
     async function verifyFavorites() {
-     getUser()
-      const favoritos = objUser.favoritos ? objUser.favoritos : [];
-      const leng = favoritos?.length ? favoritos?.length : 0;
+      await getLogged()
+      const favoritos = loggedUser.favoritos;
 
-      for (let i = 0; i < leng; i++) {
-        if (favoritos[i]._id === bakery._id) {
-          setFavorite(true)
+      if(favoritos) {
+        const leng = favoritos.length;
+
+        for (let i = 0; i < leng; i++) {
+          if (favoritos[i]._id === bakery._id) {
+            setFavorite(true)
+          }
         }
       }
     }
 
     verifyFavorites()
-  }, [])
+  })
 
   async function favoriteBakery(bakeryId: String) {
-    getUser();
+    const loggedUser = await getLoggedUser();
 
     await favoriteBakeryServices(bakeryId).then(response => {  
       if (response[0].error === "" || response[0].error === undefined || response[0].error === null){
@@ -62,14 +60,14 @@ export default function TabOneScreen({ route }: any) {
           for (let i = 0; i<response.length; i++) {
               favoritesIdList.push({_id: response[i]._id})
           }
-          objUser.favoritos = favoritesIdList
-          setAndChangeLoggedUser(objUser)
+          loggedUser.favoritos = favoritesIdList
+          setAndChangeLoggedUser(loggedUser)
 
           const obj : FavoriteNavigationInterface = {}
 
           obj.bakeries = response
           obj.method = "add"
-          obj.bakeryName = String(bakery.nome)
+          obj.bakeryName = String(loggedUser.nome)
 
           navigation.navigate("FavoriteScreen", obj)
         }
@@ -79,16 +77,16 @@ export default function TabOneScreen({ route }: any) {
   }
 
   async function unFavoriteBakery(bakeryId: String) {
-    getUser();
+    const loggedUser : UserInterface = await getLoggedUser();
+
     await unFavoriteBakeryServices(bakeryId).then(response => {
-      if(response.length > 0) {
-        if (response[0].error === "" || response[0].error === undefined || response[0].error === null){
           let favoritesIdList : Array<favorites> = [];
           for (let i = 0; i<response.length; i++) {
               favoritesIdList.push({_id: response[i]._id})
           }
-          objUser.favoritos = favoritesIdList
-          setAndChangeLoggedUser(objUser)
+
+          loggedUser.favoritos = favoritesIdList
+          setAndChangeLoggedUser(loggedUser)
 
           const obj : FavoriteNavigationInterface = {}
 
@@ -97,13 +95,6 @@ export default function TabOneScreen({ route }: any) {
           obj.bakeryName = String(bakery.nome)
 
           navigation.navigate("FavoriteScreen", obj)
-        }
-      }
-      else {
-        objUser.favoritos = []
-        setAndChangeLoggedUser(objUser)
-        navigation.navigate("FavoriteScreen", obj )
-      }
       }).catch(error => {
         console.log(error)
       });
@@ -156,7 +147,8 @@ export default function TabOneScreen({ route }: any) {
 
           <TouchableOpacity onPress={() => { 
             addRecentBakery(bakery._id)
-            navigation.navigate("BeNotified", { bakery: bakery }) }} style={styles.beNotifiedContainer}>
+            navigation.navigate("BeNotified", { bakery: bakery })
+            }} style={styles.beNotifiedContainer}>
             <View style={styles.notificationIconContainer}>
               <NotificationPhone widthImage={80} heightImage={80} />
             </View>

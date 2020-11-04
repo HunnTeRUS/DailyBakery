@@ -23,17 +23,17 @@ const Confirmation = () => {
           navigation.navigate('WalkthroughTutorial')
         }
         else {
-          removeLoggedUser('loggedUser')
+          removeLoggedUser()
           return;
-        }
+        } 
       }
       else {
-        removeLoggedUser('loggedUser')
+        removeLoggedUser()
         return;
       }
     }).catch(error => {
       console.log(error)
-      removeLoggedUser('loggedUser')
+      removeLoggedUser()
       return;
     });
   }
