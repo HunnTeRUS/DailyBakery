@@ -139,15 +139,15 @@ const MapScreen = () => {
                 items={[
                     {label: 'Meu Perfil', value: "profile", icon: () => <MaterialIcons onPress={() =>{}} name="perm-identity" size={18} color="#FEC044" />},
                     {label: 'Recentes', value: 'recents', icon: () => <MaterialIcons name="watch-later" size={18} color="#FEC044" />},
+                    {label: 'Padarias favoritas', value: 'favorites', icon: () => <MaterialIcons name="star" size={18} color="#FEC044" />},
                     {label: 'Sair', value: 'logout', icon: () => <MaterialIcons name="power-settings-new" size={18} color="red" />},
                 ]}
                 labelStyle={{
                     fontFamily: "Poppins-Regular",
-                    fontSize: 15
+                    fontSize: 15,
                 }}
                 containerStyle={{
                     width: '20%',
-                    height: 60,
                     alignItems: "center",
                     justifyContent: "center",
                     position: "absolute",
@@ -173,7 +173,7 @@ const MapScreen = () => {
                 dropDownStyle={{
                     backgroundColor: '#fafafa',
                     alignSelf: 'flex-end',
-                    width: 200,
+                    width: 220,
                     shadowColor: "#000",
                     shadowOpacity: 0.2,
                     shadowOffset: {
@@ -182,6 +182,7 @@ const MapScreen = () => {
                     },
                     elevation: 5,
                 }}
+                dropDownMaxHeight= {600}
                 onChangeItem={item => {
                     if(item.value === 'profile')
                         navigation.navigate("Profile")
@@ -192,6 +193,9 @@ const MapScreen = () => {
                     }
                     if(item.value === 'recents')
                         navigation.navigate("RecentScreen")
+                    
+                    if(item.value === 'favorites')
+                        navigation.navigate("FavoriteScreen", obj )
                 }}
             />
         </>

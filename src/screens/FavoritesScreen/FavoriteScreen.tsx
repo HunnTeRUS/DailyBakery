@@ -199,7 +199,7 @@ export default function FavoriteScreen() {
         <CookieLove widthImage={120} heightImage={120}/>
         <View style={styles.textHeader}>
           <Text style={{ fontFamily: "Poppins-Bold", color: "white", fontSize: 17 }}>Suas padarias favoritas</Text>
-          <Text style={{ fontFamily: "Poppins-ExtraLight", color: "white", fontSize: 15 }}>As padarias que você mais gosta listadas em um lugar!</Text>
+          <Text style={{ fontFamily: "Poppins-ExtraLight", color: "white", fontSize: 15 }}>As padarias que você mais gosta listadas em um único lugar!</Text>
         </View>
       </View>
 

@@ -7,11 +7,14 @@ import {getRecentBakeries} from '../../services/RecentsServices/RecentBakeriesSe
 import BakeryInterface from '../../Interfaces/BakeryInterfaceDAO';
 import ShimmerPlaceHolder from 'react-native-shimmer-placeholder';
 import NotFound from '../../../assets/svgs/NotFound';
+import Navigation from '../../navigation';
+import { useNavigation } from '@react-navigation/native';
 
 export default function RecentScreen() {
 
   const [bakeries, setBakeries] = React.useState<BakeryInterface[]>([])
   const [loading, setLoading] = React.useState(false)
+  const navigation = useNavigation()
 
   React.useEffect(() => {
     async function setRecentBakeries(){
@@ -67,7 +70,7 @@ export default function RecentScreen() {
                     {bakery.aberto_fechado ? "Fechado" : "Aberto"}
                   </Text>
                   <View style={styles.buttonsContainer}>
-                    <TouchableOpacity style={styles.controlButtonSee} onPress={() => {}}>
+                    <TouchableOpacity style={styles.controlButtonSee} onPress={() => {navigation.navigate("BottomTabNavigator", bakery)}}>
                       <Text style={styles.controlButtonText}>Ver mais</Text>
                       <MaterialIcons name="keyboard-arrow-right" size={20} color="#FEC044" />
                     </TouchableOpacity>
