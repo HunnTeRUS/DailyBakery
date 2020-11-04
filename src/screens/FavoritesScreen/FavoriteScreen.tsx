@@ -14,6 +14,7 @@ import getLoggedUser, { setAndChangeLoggedUser } from '../../utils/LoggedUser';
 import { unFavoriteBakeryServices } from '../../services/FavoriteBakeryServices/FavoriteBakeryServices';
 import ShimmerPlaceHolder from 'react-native-shimmer-placeholder';
 import NotFound from '../../../assets/svgs/NotFound';
+import CookieLove from '../../../assets/svgs/CookieLove';
 
 export default function FavoriteScreen() {
   const route = useRoute();
@@ -146,7 +147,7 @@ export default function FavoriteScreen() {
         return (
         <View style={styles.notFoundContainer}>
           <NotFound widthImage={250} heightImage={250} />
-          <Text style={styles.notFoundText}>Nenhum resultado encontrado!</Text>
+          <Text style={styles.notFoundText}>Você ainda não favoritou nenhuma padaria!</Text>
         </View>)
       }
       else if(!loading && params.bakeries && method === "add"){
@@ -195,7 +196,11 @@ export default function FavoriteScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={{ fontFamily: "Poppins-Bold", color: "white", fontSize: 17 }}>Suas Padarias Favoritas</Text>
+        <CookieLove widthImage={120} heightImage={120}/>
+        <View style={styles.textHeader}>
+          <Text style={{ fontFamily: "Poppins-Bold", color: "white", fontSize: 17 }}>Suas padarias favoritas</Text>
+          <Text style={{ fontFamily: "Poppins-ExtraLight", color: "white", fontSize: 15 }}>As padarias que você mais gosta listadas em um lugar!</Text>
+        </View>
       </View>
 
       <View style={styles.secondContainer}>

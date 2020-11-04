@@ -25,6 +25,13 @@ export default StyleSheet.create({
     alignItems: "center"
   },
 
+  loaderContainer: {
+    height: "100%",
+    flex: 1,
+    borderTopRightRadius: 15,
+    borderBottomRightRadius: 15
+  },
+
   searchForm: {
     zIndex: 5,
     marginBottom: "5%",

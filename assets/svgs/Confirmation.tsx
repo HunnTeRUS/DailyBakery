@@ -41,7 +41,6 @@ interface ConfirmationInterface {
           y1={703.96}
           x2={215.55}
           y2={309.97}
-          xlinkHref="#prefix__a"
         />
       </Defs>
       <Path

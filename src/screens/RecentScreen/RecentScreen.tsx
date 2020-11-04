@@ -47,7 +47,7 @@ export default function RecentScreen() {
     else if((!loading && bakeries.length === 0)) {
         return (<View style={styles.notFoundContainer}>
           <NotFound widthImage={250} heightImage={250} />
-          <Text style={styles.notFoundText}>Nenhum resultado encontrado!</Text>
+          <Text style={styles.notFoundText}>Você ainda não pediu para ser notificado por nenhuma padaria!</Text>
         </View>)
     }
 

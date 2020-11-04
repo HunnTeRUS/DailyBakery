@@ -1,18 +1,13 @@
-import { FontAwesome5, MaterialIcons } from '@expo/vector-icons';
-import { useFocusEffect, useNavigation, useRoute } from '@react-navigation/native';
+import { MaterialIcons } from '@expo/vector-icons';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import * as React from 'react';
 import { View, TextInput, TouchableOpacity, Text, Image } from 'react-native';
 import styles from './styles'
-import ModalPopupInfos from '../../components/ModalPopup/ModalPopupInfo/ModalPopupInfos';
-import ModalPopupLoading from '../../components/ModalPopup/ModalPopupLoading/ModalPopupLoading';
-import ModalPopupWarns from '../../components/ModalPopup/ModalPopupWarn/ModalPopupWarns'
-import ModalPopupInterrogs from '../../components/ModalPopup/ModalPopupInterrog/ModalPopupInterrogs'
 import { ScrollView } from 'react-native-gesture-handler';
-import NotificationPhone from '../../../assets/svgs/NotificationPhone';
-import Baker from '../../../assets/svgs/Baker';
 import { getBakeryByName } from '../../services/MapServices/MapServices';
 import BakeryInterface from '../../Interfaces/BakeryInterfaceDAO';
 import NotFound from '../../../assets/svgs/NotFound';
+import ShimmerPlaceHolder from 'react-native-shimmer-placeholder';
 
 interface Search{
     bakeryName: String
@@ -20,13 +15,9 @@ interface Search{
 
 export default function SearchBakeryByName() {
     const navigation = useNavigation();
-    const [show, setShow] = React.useState(false);
-    const [showWarn, setShowWarn] = React.useState(false);
-    const [showLoading, setShowLoading] = React.useState(false)
-    const [showAsk, setShowAsk] = React.useState(false)
     const [bakeryName, setBakeryName] = React.useState("")
     const [bakeries, setBakeries] = React.useState<BakeryInterface[]>([])
-
+    const [loading, setLoading] = React.useState(false)
     const route = useRoute();
     const routeParams : Search= route.params as Search;
 
@@ -40,8 +31,10 @@ export default function SearchBakeryByName() {
             let bakeries: BakeryInterface[] = [];
             setBakeries(bakeries)
         }
-        if (text) {
+        else if (text) {
+            setLoading(true)
             await getBakeryByName(text).then(response => {
+                setLoading(false)
                 setBakeries(response)
             }).catch(error => {
                 console.log(error)
@@ -49,15 +42,57 @@ export default function SearchBakeryByName() {
         }
     }
 
+    function renderComponents(){
+        if(loading){
+            return (
+            <ScrollView contentContainerStyle={{ alignItems: "center" }} bounces={true} style={styles.scrollView}>
+            <View style={styles.beNotifiedContainer}>
+              <View style={styles.notificationIconContainer}>
+                <Image style={styles.bakerImage} resizeMode="contain" source={require("../../../assets/images/bakerIconTransparent.png")} />
+              </View>
+              <ShimmerPlaceHolder style={styles.loaderContainer} autoRun={true} visible={false} />
+            </View>
+            <View style={styles.beNotifiedContainer}>
+              <View style={styles.notificationIconContainer}>
+                <Image style={styles.bakerImage} resizeMode="contain" source={require("../../../assets/images/bakerIconTransparent.png")} />
+              </View>
+              <ShimmerPlaceHolder style={styles.loaderContainer} autoRun={true} visible={false} />
+            </View>
+          </ScrollView>)
+        }
+        else if(!loading && bakeries.length === 0){
+            return (
+                <View style={styles.notFoundContainer}>
+                    <NotFound widthImage={250} heightImage={250}/>
+                    <Text style={styles.notFoundText}>Nenhum resultado encontrado!</Text>
+                </View>
+            )
+        }
+        else {
+            return (
+            <ScrollView showsVerticalScrollIndicator={false} overScrollMode="never" contentContainerStyle={{ alignItems: "center" }} bounces={true} style={styles.scrollView}>
+                {bakeries.map(bakery => (
+                    <TouchableOpacity key={bakery._id} onPress={() => {navigation.navigate("BottomTabNavigator", {bakery})}} style={styles.beNotifiedContainer}>
+                        <View style={styles.notificationIconContainer}>
+                            <Image style={styles.bakerImage} resizeMode="contain" source={require("../../../assets/images/bakerIconTransparent.png")} />
+                        </View>
+                        <View style={styles.notificationTextContainer}>
+                            <Text style={styles.notificationAlertText}>
+                                {bakery.nome}
+                            </Text>
+                            <Text style={styles.notificationInfoText}>
+                                Clique aqui para ver mais informações!
+                            </Text>
+                            <MaterialIcons name="keyboard-arrow-right" size={25} style={styles.arrow} />
+                        </View>
+                    </TouchableOpacity>
+                ))}
+            </ScrollView>)
+        }
+    }
+
     return (
         <View style={styles.container}>
-            {!show ? <></> : <ModalPopupInfos onPressCloseButton={() => { navigation.navigate('BottomTabNavigator') }}
-                textToShow='Sua senha foi alterada com sucesso!' showModal={show} setShow={setShow} />}
-            {!showWarn ? <></> : <ModalPopupWarns functionToButton={() => { }} textToShow={""} showModal={showWarn} setShow={setShowWarn} />}
-            {!showLoading ? <></> : <ModalPopupLoading showModal={showLoading} />}
-            {!showAsk ? <></> : <ModalPopupInterrogs functionToYesButton={() => { }} textToTitle='Padaria do Yuri gay'
-                textToShow='Deseja ser notificado sobre esta padaria?' showModal={showAsk} setShow={setShowAsk} />}
-
             <View style={[styles.searchForm]}>
                 <TextInput
                     style={styles.searchInput}
@@ -76,30 +111,7 @@ export default function SearchBakeryByName() {
             </View>
 
             <View style={styles.secondContainer}>
-                {bakeries.length === 0 ?
-                    <View style={styles.notFoundContainer}>
-                        <NotFound widthImage={250} heightImage={250}/>
-                        <Text style={styles.notFoundText}>Nenhum resultado encontrado!</Text>
-                    </View>
-                    : <ScrollView contentContainerStyle={{ alignItems: "center" }} bounces={true} style={styles.scrollView}>
-                        {bakeries.map(bakery => (
-                            <TouchableOpacity key={bakery._id} onPress={() => {navigation.navigate("BottomTabNavigator", {bakery})}} style={styles.beNotifiedContainer}>
-                                <View style={styles.notificationIconContainer}>
-                                    <Image style={styles.bakerImage} resizeMode="contain" source={require("../../../assets/images/bakerIconTransparent.png")} />
-                                </View>
-                                <View style={styles.notificationTextContainer}>
-                                    <Text style={styles.notificationAlertText}>
-                                        {bakery.nome}
-                                    </Text>
-                                    <Text style={styles.notificationInfoText}>
-                                        Clique aqui para ver mais informações!
-                            </Text>
-                                    <MaterialIcons name="keyboard-arrow-right" size={25} style={styles.arrow} />
-                                </View>
-                            </TouchableOpacity>
-                        ))}
-                    </ScrollView>}
-
+                {renderComponents()}
             </View>
 
 

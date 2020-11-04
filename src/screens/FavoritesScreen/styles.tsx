@@ -29,7 +29,7 @@ export default StyleSheet.create({
   secondContainer: {
     borderTopColor: "#FEC044",
     borderTopWidth: 5,
-    height: '93%',
+    height: '85%',
     width: '100%',
     alignSelf: 'center',
     backgroundColor: "white",
@@ -125,6 +125,14 @@ export default StyleSheet.create({
   bakerImage: {
     width: 80,
     height: 80
+  },
+
+
+  textHeader: {
+    width: '60%',
+    alignItems: "center",
+    marginLeft: "4%",
+    justifyContent: "center"
   },
 
   beNotifiedContainer: {

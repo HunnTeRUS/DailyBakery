@@ -1,11 +1,13 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
 import * as React from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
 import styles from './styles'
 import BeNotifiedIcon from '../../../assets/svgs/BeNotified'
-import { FontAwesome5 } from '@expo/vector-icons';
+import { FontAwesome5, MaterialIcons } from '@expo/vector-icons';
 import BakeryInterface from '../../Interfaces/BakeryInterfaceDAO';
 import formatDateFromStringDate, { formatHourFromStringDate } from '../../utils/FormatDate';
+import NotificationPhone from '../../../assets/svgs/NotificationPhone';
+import NotificationPhoneReady from '../../../assets/svgs/NotificationPhoneReady';
 
 export default function BeNotified() {
   // const navigation = useNavigation();
@@ -14,30 +16,24 @@ export default function BeNotified() {
 
   return (
     <View style={styles.container}>
-      {/* <View style={styles.secondContainer}>
-        <View style={styles.benotifiedIcon}>
-          <Text style={styles.title}>Você será notificado por esta padaria na proxima fornada que sair!</Text>
-          <BeNotifiedIcon widthImage={300} />
+      <View style={styles.benotifiedIcon}>
+        <NotificationPhoneReady widthImage={300} />
+      </View>
+      <View style={styles.secondContainer}>
+        <View style={styles.textContainer}>
+          <Text style={styles.title}>Notificações ativadas!</Text>
+          <Text style={styles.subTitle}>Você será notificado por esta padaria na proxima fornada que sair. Se não quiser mais ser notificado, basta clicar no botão abaixo!</Text>
         </View>
-
-        <View style={styles.thirdContainer}>
-          <View style={styles.viewOfFornadasAux}>
-            <View style={styles.viewOfFornadas}>
-              <FontAwesome5 style={styles.clockIcon} name="clock" size={35} />
-              <Text style={styles.ultimaFornadaText}>
-                <Text
-                  style={styles.ultimaFornadaTextLabel}>
-                  Ultima fornada:
-                      </Text>
-                  {"\n"}
-                  {formatDateFromStringDate(String(bakery.ultima_fornada ? bakery.ultima_fornada : "" ))}
-                  {"\n"}
-                  {formatHourFromStringDate(String(bakery.ultima_fornada ? bakery.ultima_fornada : ""))}
-              </Text>
-            </View>
-          </View>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity
+            onPress={() => {
+            }}
+            style={styles.nextButton}>
+            <Text style={styles.nextText}>Desativar notificação</Text>
+            <MaterialIcons name="notifications" color="#f46b45" style={{paddingLeft: 5}} size={20} />
+          </TouchableOpacity>
         </View>
-      </View> */}
+      </View>
     </View>
   );
 }
