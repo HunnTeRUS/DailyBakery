@@ -1,14 +1,14 @@
 # DailyBakery
 
-Este app tem a funcão combinada com o app DailyBakery Owner, onde o Daily Bakery tem a função de disponibilizar todas as padarias proximas a você num raio de 10KM.
+This app has the function combined with the DailyBakery Owner app, where the Daily Bakery has the function of providing all bakeries near you within a radius of 10KM.
 
-Você pode escolher a padaria que estiver mais proxima a você, ativar a rota para chegar até ela ou então, pedir para ser notificado na proxima fornada de pão quentinho que sair! A aplicação perfeita para os apaixonados por pães quentinhos e que gostam de busca-los na propria padaria.
+You can choose the bakery closest to you, activate the route to get there or ask to be notified when the next batch of warm bread comes out! The perfect application for those who love warm breads and who like to find them at their own bakery.
 
-A aplicação será disponibilizada na Play Store no ano que vem, com o backend ja no ar dentro da plataforma Heroku.
+The application will be available on the Play Store next year, with the backend already live within the Heroku platform.
 
-### Tecnologias utilizadas: <br>
+### Technologies used: <br>
 1. TypeScript
 2. NodeJs
 3. React Native
 4. Amazon Web Services
-5. Serviços de email SMTP
+5. Email SMTP
